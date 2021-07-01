@@ -5,7 +5,7 @@ class LoginPageTest(TestCase):
 
     def test_uses_login_template(self):
         response = self.client.get('/')
-        self.assertTemplateUsed(response, 'login.html')
+        self.assertTemplateUsed(response, 'musicapp/login_page.html')
 
     def test_sign_up_link(self):
         pass
