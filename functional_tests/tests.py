@@ -21,9 +21,9 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('Music Hub', self.browser.title)  
 
         # Ziggy does not have an account so he chooses the sign up link that is below the entry fields
-        sign_up_link = self.browser.find_element_by_link_text("Sign up")
+        time.sleep(2)
+        sign_up_link = self.browser.find_element_by_link_text("Sign Up")
         sign_up_link.click()
-        self.assertEqual(sign_up_link, 'sign_up')
         
         # He enters his details into the boxes and clicks the register button
         fname_input = self.browser.find_element_by_id('fname')
@@ -38,6 +38,7 @@ class NewVisitorTest(LiveServerTestCase):
         pass_input = self.browser.find_element_by_id('password')
         pass_input.send_keys('pass1')
 
+        time.sleep(2)
         sign_up_button = self.browser.find_element_by_id('sign_up_button')
         sign_up_button.click()
 
@@ -49,12 +50,11 @@ class NewVisitorTest(LiveServerTestCase):
         pass_input = self.browser.find_element_by_id('password')
         pass_input.send_keys('pass1')
 
-        login_button = self.browser.find_element_by_id('sign_up_button')
+        login_button = self.browser.find_element_by_id('login_button')
         login_button.click()
 
         # He is now re-directed to his dashboard
 
-        time.sleep(4)
         self.fail('Finish the test!')  
 
 

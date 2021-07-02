@@ -1,5 +1,6 @@
 from django.http import response
 from django.test import TestCase
+from django.urls import resolve
 
 # Create your tests here.
 class LoginPageTest(TestCase):
@@ -7,10 +8,6 @@ class LoginPageTest(TestCase):
     def test_uses_login_template(self):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'musicapp/login_page.html')
-
-    def test_sign_up_link(self):
-        sign_up_link = self.browser.find_element_by_link_text("Sign up")
-        self.assertEqual(sign_up_link, '/sign_up')
 
     def test_uses_sign_up_template(self):
         response = self.client.get('/sign_up')
