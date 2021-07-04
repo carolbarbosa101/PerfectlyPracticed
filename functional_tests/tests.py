@@ -41,6 +41,7 @@ class NewVisitorTest(LiveServerTestCase):
         time.sleep(2)
         sign_up_button = self.browser.find_element_by_id('sign_up_button')
         sign_up_button.click()
+        time.sleep(2)
 
         # He is redirected to the login page again now 
         # Ziggy enters his details and sucessfully logs in

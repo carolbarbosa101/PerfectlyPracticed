@@ -4,9 +4,9 @@
     <title>Music Hub</title>
 </head>
 <body>
-    <h1>Welcome to the your practice zone!</h1>
+    <h1>Practise Makes Permanent So Practise Perfectly!</h1>
 
-<form method="GET">
+<form method="POST">{% csrf_token %}
     <div class="container" style="background-color:#f1f1f1">
         <label for="email">E-mail address</label><br>
         <input type="text" id="email" name="email"><br><br>
@@ -14,15 +14,15 @@
         <label for="password">Password</label><br>
         <input type="text" id="password" name="password"><br><br>
 
-        <button type="submit">
+        <button type="submit" id="login_button">
             Login
         </button>
         <label>
-            <input type="checkbox" checked="unchecked" name="remember">
+            <input type="checkbox" checked="checked" name="remember">
         </label>
         <br><br>
 
-        <a href="sign_up" id="sign_up"> Sign Up</a>
+        <a href="{% url 'sign_up' %}" id="sign_up"> Sign Up</a>
     </div>
 </form>
 

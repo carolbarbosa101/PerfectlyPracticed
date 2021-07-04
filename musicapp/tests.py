@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.urls import resolve
 
 # Create your tests here.
-class LoginPageTest(TestCase):
+class NewVisitorTest(TestCase):
 
     def test_uses_login_template(self):
         response = self.client.get('/')
