@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Music Hub</title>
-</head>
+{% extends 'users/base.html' %}
+{% load crispy_forms_tags %}
+{% block content%}
+{% block title %}
+<title>Login</title>
+{% endblock %}
 <body>
-    <h1>Practise Makes Permanent So Practise Perfectly!</h1>
-
+<h1>Practice Makes Perfect So Practice Perfectly!</h1>
 <form method="POST">{% csrf_token %}
-    <div class="container" style="background-color:#f1f1f1">
+    <div class="content-section">
         <label for="email">E-mail address</label><br>
         <input type="text" id="email" name="email"><br><br>
 
@@ -17,14 +17,11 @@
         <button type="submit" id="login_button">
             Login
         </button>
-        <label>
-            <input type="checkbox" checked="checked" name="remember">
-        </label>
         <br><br>
 
         <a href="{% url 'sign_up' %}" id="sign_up"> Sign Up</a>
     </div>
 </form>
-
 </body>
-</html>
+{% endblock %}
+

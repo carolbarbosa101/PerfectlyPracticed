@@ -7,11 +7,11 @@ class NewVisitorTest(TestCase):
 
     def test_uses_login_template(self):
         response = self.client.get('/')
-        self.assertTemplateUsed(response, 'musicapp/login_page.html')
+        self.assertTemplateUsed(response, 'users/login_page.html')
 
     def test_uses_sign_up_template(self):
         response = self.client.get('/sign_up')
-        self.assertTemplateUsed(response, 'musicapp/sign_up.html')
+        self.assertTemplateUsed(response, 'users/sign_up.html')
 
     def test_details_registered(self):
         pass
