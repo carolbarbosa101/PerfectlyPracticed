@@ -5,11 +5,10 @@
 <title>Sign Up</title>
 {% endblock %}
 <body>
-<h1>Register your details here.</h1>
 <div class="content-section">
     <form method="POST">{% csrf_token %}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4"></legend>
+            <legend class="border-bottom mb-4">Register your details here.</legend>
             {{ form|crispy }}
         </fieldset>
         <div class="form-group">

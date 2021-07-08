@@ -1,0 +1,15 @@
+body {
+  background: #fafafa;
+  color: #333333;
+  margin-top: 5rem;
+}
+.content-section {
+    background: #ffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    position: absolute;
+    width: 500px;
+    left: 50%;
+    transform:translateX(-50%);
+  }
