@@ -40,5 +40,8 @@ class RegisterLoginTest(TestCase):
         response = self.client.post('/', data={'username': 
         'user2@test.com','password':'PassTest123'})
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/success')
+        self.assertEqual(response['location'], '/dashboard')
+    
+
+    
         

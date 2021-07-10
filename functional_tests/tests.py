@@ -50,7 +50,25 @@ class NewVisitorTest(LiveServerTestCase):
 
         # He is now re-directed to his dashboard
 
-        # self.fail('Finish the test!')  
+        # He can see there is button links to each of the features of the app
+        self.fail('Finish the test!')  
+        self.browser.find_element_by_name('Timer')
+        self.browser.find_element_by_name('Song Book')
+        self.browser.find_element_by_name('Metronome ')
+        self.browser.find_element_by_name('Tuner')
+        self.browser.find_element_by_name('Log')
+
+        # He can see links to log out, go to settings and profile 
+        self.browser.find_element_by_name('Log Out')
+        self.browser.find_element_by_class_name('setttings')
+        self.browser.find_element_by_class_name('profile')
+
+        # He can see a calendar showing what days he has practiced
+
+        # He can see the goals that he has set
+
+    
+
 
 
 

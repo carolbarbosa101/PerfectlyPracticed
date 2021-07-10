@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'crispy_forms',
+    'dashboard.apps.DashboardConfig'
 ]
 
 AUTH_USER_MODEL = 'users.MyUser'
@@ -134,5 +135,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'success'
+LOGIN_REDIRECT_URL = 'dashboard'
 

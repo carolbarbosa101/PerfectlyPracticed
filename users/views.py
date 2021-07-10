@@ -7,9 +7,6 @@ from .forms import UserRegisterForm
 def login(request):
     return render(request, 'users/login.html',{})
 
-def success(request):
-    return render(request, 'users/success.html',{})
-
 def sign_up(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
