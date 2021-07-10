@@ -4,7 +4,7 @@ from django.contrib import messages
 from .forms import UserRegisterForm
 
 # Create your views here.
-def login_page(request):
+def login(request):
     return render(request, 'users/login.html',{})
 
 def success(request):
@@ -17,7 +17,7 @@ def sign_up(request):
             form.save()
             email = form.cleaned_data.get('email')
             messages.success(request, f'Account sucessfully created for {email}')
-            return redirect('login_page')
+            return redirect('login')
     else:
         form = UserRegisterForm()
     return render(request, 'users/sign_up.html',{'form':form})
