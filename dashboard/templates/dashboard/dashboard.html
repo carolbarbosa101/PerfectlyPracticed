@@ -13,27 +13,58 @@
     <title>Dashboard</title>
 </head>
 <body>
-    <h1>Welcome to your practice zone!</h1>
-
-<div class="container">
-    Profile, Settings, Log Out
+    <header class="page-header">
+        <div class="row">
+            <div class="col-sm-7 offset-2" id="header">
+                <h1><a href="/">Welcome to your practice zone!</a></h1>
+            </div>
+            <div class="col-sm-3" id="header-menu">
+                <a href="" class="profile">
+                    Profile
+                </a>
+                <a href="" class="settings">
+                    Settings
+                </a>
+                <a href="" class="logout">
+                    Log Out
+                </a>
+            </div>
+        </div>
+      </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <form method="POST">
+                    <input name="goal_text" id="id_new_goal" placeholder="Enter a goal" />
+                    {% csrf_token %}
+                </form> 
+            </div> 
+            <div class="col-sm">
+                Calendar 
+            </div> 
+        </div>
+    <br><br>
+        <div class="row" id="features">
+            <div class="col-sm">
+                <button type="button" class="btn btn-primary btn-lg">Timer</button> 
+            </div> 
+            <div class="col-sm">
+                <button type="button" class="btn btn-primary btn-lg">Song Book</button> 
+            </div> 
+            <div class="col-sm">
+                <button type="button" class="btn btn-primary btn-lg">Metronome</button> 
+            </div> 
+            <div class="col-sm">
+                <button type="button" class="btn btn-primary btn-lg">Tuner</button> 
+            </div> 
+            <div class="col-sm">
+                <button type="button" class="btn btn-primary btn-lg">Log</button> 
+            </div> 
+        </div>
 </div>
 
-<div class="container">
-    Calendar 
-</div>
 
-<div class="container">
-    Goals 
-</div>
 
-<div class="container">
-    Timer,
-    Song Book,
-    Metronome,
-    Tuner,
-    Log
-</div>
 
 
 
