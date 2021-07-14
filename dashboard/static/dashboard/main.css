@@ -18,3 +18,69 @@
 #features{
     margin-top: 200px;
 }
+
+#goals_table{
+    margin-bottom: 5px;
+}
+
+#goal_heading{
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+#date_heading {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px;
+    border-bottom: 1px solid black;
+}
+
+#goal_cell{
+    border-right: 1px solid black;
+    padding: 5px;
+}
+#date_cell {
+    padding: 5px;
+}
+
+.text-center.month {
+    margin: 0 auto;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    position: relative;
+    z-index: 10;
+}
+
+
+.month tbody .month{
+    text-align: center;
+    font-size: 30px;
+    background-color: #39CCCC;
+    padding: 20px;
+}
+
+.month tbody tr{
+    padding: 20px;
+}
+
+.month tbody :nth-of-type(2) .mon,
+.month tbody :nth-of-type(2) .tue,
+.month tbody :nth-of-type(2) .wed,
+.month tbody :nth-of-type(2) .thu,
+.month tbody :nth-of-type(2) .fri,
+.month tbody :nth-of-type(2) .sat,
+.month tbody :nth-of-type(2) .sun {
+    font-size: 20px;
+    padding: 10px 20px;
+    background-color: #00B0B1;
+}
+
+.month tbody :nth-of-type(3),
+.month tbody :nth-of-type(4),
+.month tbody :nth-of-type(5),
+.month tbody :nth-of-type(6),
+.month tbody :nth-of-type(7) {
+    font-size: 20px;
+    padding: 20px;
+}
