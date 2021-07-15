@@ -33,7 +33,7 @@
       </header>
     <div class="container">
         <div class="row">
-            <div class="col-md-6" id="goals">
+            <div class="col-md-6" id="goals_section">
                 <table id="goals_table">
                     <tr>
                         <td id="goal_heading">Goal</td>
@@ -43,18 +43,28 @@
                     <tr>
                           <td id="goal_cell">{{ goal.text }}</td>
                           <td id="date_cell">{{ goal.due_date }}</td>
+                          <td id="checkbox">
+                                <input type="checkbox" onclick="location.href='{% url 'goal_tick' goal.pk %}'">
+                          </td>
+                          <td id="edit_button">
+                                <a href="">
+                                    {% include './icons/pencil-fill.svg' %}
+                                 </a>
+                          </td>
                     </tr>  
                     {% endfor %}
                     <tr>
                         <form method="POST">
                             <td>
-                                <input name="goal_input" id="new_goal" placeholder="Enter a goal" />
+                                <input name="goal_input" id="new_goal" placeholder="Enter a new goal" />
                             </td>
                             <td>
-                                <input type="date" name="date_input" id="new_date" placeholder="Enter the goal deadline" />
+                                <input type="date" name="date_input" id="new_date" />
                             </td>
                             <td>
-                                <button type="submit"> + </button>
+                                <button type="submit" class="btn btn-outline-success btn-sm" id="submit_button"> 
+                                    +
+                                </button>
                             </td>
                             {% csrf_token %}
                         </form> 
