@@ -9,19 +9,46 @@
 .page-header h1 a:visited,
 .page-header h1 a:active {
     color: #3badad;
+    text-decoration: none;
 }
 
-#header-menu{
+#header_text{
+    margin-top: 5px;
+}
+
+#feature_links{
     margin-top: 15px;
 }
 
-.profile, .settings, .logout {
-    color: #3badad;
+#header-menu{
+    margin-top: 25px;
 }
 
-#features{
-    margin-top: 100px;
+.timer, .song_book, .metronome, .tuner, .log {
+    font-size: 25px;
+    margin-right: 60px;
+    color: white;
+    text-decoration: none;
+    
 }
+
+.timer:hover, .song_book:hover, .metronome:hover, .tuner:hover, .log:hover{
+    color: #3badad;
+    text-decoration: none;
+    
+}
+
+.profile, .settings_link, .logout {
+    color: #3badad;
+    text-decoration: none;
+}
+
+.profile:hover, .settings_link:hover, .logout:hover {
+    color: white;
+    text-decoration: none;
+}
+
+
 
 #goals_table{
     margin-bottom: 5px;
@@ -56,22 +83,33 @@
     transform: scale(1.2);
 }
 
-#new_goal{
+#goal_input{
     margin-top: 10px;
     box-shadow:  #001f3f 0px 0px 0px 0px;
     width:100%;
 }
 
-#new_date{
+#date_input{
     margin-top: 10px;
     box-shadow: #001f3f 0px 0px 0px 0px;
 }
 
-#submit_button{
+#add_button{
     margin-top: 10px;
     font-weight: bold;
     margin-left: 1px;
     transform: scale(0.9);
+}
+
+#goal_cell_edit{
+    width: 100%;
+}
+
+#save_button{
+    margin-top: 3px;
+    border: none;
+    background-color: transparent;
+    outline: none;
 }
 
 .text-center.month {

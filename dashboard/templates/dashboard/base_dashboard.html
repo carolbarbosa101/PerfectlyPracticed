@@ -1,0 +1,58 @@
+{% extends 'dashboard/base.html' %}
+{% block content%}
+<div class="row">
+    <div class="col-md-6" id="goals_section">
+        <table id="goals_table">
+            <tr>
+                <td id="goal_heading">Goal</td>
+                <td id="date_heading">Due Date</td>
+            </tr>
+            {% for goal in goals %}
+            <tr>
+            {% block goal_editing %}
+                    <td id="goal_cell">{{ goal.text }}</td>
+                    <td id="date_cell">{{ goal.due_date }}</td>
+                    <td id="checkbox">
+                        <input type="checkbox" onclick="location.href='{% url 'goal_tick' goal.pk %}'">
+                    </td>
+                    <td class="edit_button">
+                        <a href="{% url 'goal_edit' goal.pk %}">
+                            {% include './icons/pencil-fill.svg' %}
+                        </a>
+                    </td>
+            {% endblock goal_editing %}      
+            </tr> 
+            {% endfor %}
+            <tr>
+                <form method="POST">
+                    <td>
+                        <input name="goal_input" id="goal_input" placeholder="Enter a new goal" />
+                    </td>
+                    <td>
+                        <input type="date" name="date_input" id="date_input" />
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-outline-success btn-sm" id="add_button"> 
+                            +
+                        </button>
+                    </td>
+                    {% csrf_token %}
+                </form> 
+            </tr>
+            <tr>
+                {% if invalid_entry == True %}
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        Please enter a goal.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endif %}
+            </tr>
+        </table>
+    </div> 
+    <div class="col-md-6" id="calendar">
+        {{ cal|safe }} 
+    </div> 
+</div>
+{% endblock %}

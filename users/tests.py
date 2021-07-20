@@ -15,14 +15,14 @@ class RegisterLoginTest(TestCase):
         response = self.client.get('/sign_up')
         self.assertTemplateUsed(response, 'users/sign_up.html')
     
-    def sign_up_POST(self):
+    def sign_up_post(self):
         response = self.client.post('/sign_up', data={'email': 
         'user2@test.com', 'first_name':'User', 'last_name':'Test',
         'password1':'PassTest123', 'password2':'PassTest123'})
         return response
 
-    def test_details_saved_after_POST(self):
-        self.sign_up_POST()
+    def test_details_saved_after_post(self):
+        self.sign_up_post()
         self.assertEqual(MyUser.objects.count(), 1)
         new_item = MyUser.objects.first()
         self.assertEqual(new_item.email, 'user2@test.com')
@@ -31,12 +31,12 @@ class RegisterLoginTest(TestCase):
         self.assertTrue(new_item.check_password('PassTest123'))
 
     def test_redirect_to_login_after_signup(self):
-        response = self.sign_up_POST()
+        response = self.sign_up_post()
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response['location'], '/')
 
     def test_successful_login(self):
-        self.sign_up_POST()
+        self.sign_up_post()
         response = self.client.post('/', data={'username': 
         'user2@test.com','password':'PassTest123'})
         self.assertEqual(response.status_code, 302)

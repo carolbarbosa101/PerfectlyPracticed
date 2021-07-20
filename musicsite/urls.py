@@ -21,6 +21,5 @@ import dashboard.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('users.urls')),
-    path('dashboard', dashboard.views.dashboard, name='dashboard'),
-    path('goal_tick/<int:pk>/', dashboard.views.goal_tick, name='goal_tick'),
+    path('', include('dashboard.urls')),
 ]
