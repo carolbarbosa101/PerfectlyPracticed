@@ -3,7 +3,6 @@ from django.shortcuts import get_object_or_404, redirect, render
 import datetime 
 from calendar import HTMLCalendar
 from dashboard.my_calendar import CustomCal
-from bs4 import BeautifulSoup
 
 def dashboard(request):
     invalid_entry = False
@@ -18,7 +17,8 @@ def dashboard(request):
     goals = Goal.objects.filter(completed=False)
     today = datetime.datetime.today()
     cal = CustomCal().formatmonth(today.year, today.month)
-    return render(request, 'dashboard/base_dashboard.html',{'goals':goals, 'cal':cal, 'invalid_entry':invalid_entry})
+    ccal = cal.replace('>%i<'%today.day, 'bgcolor="#66ff66"><b>%i</b><'%today.day)
+    return render(request, 'dashboard/base_dashboard.html',{'goals':goals, 'cal':ccal, 'invalid_entry':invalid_entry})
 
 def goal_tick(request, pk):
     goal = get_object_or_404(Goal, pk=pk)

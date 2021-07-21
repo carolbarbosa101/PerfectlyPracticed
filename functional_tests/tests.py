@@ -1,7 +1,9 @@
+from datetime import datetime, timedelta
 from selenium import webdriver
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.common.keys import Keys
 from django.test import LiveServerTestCase
+from PIL import ImageColor
 import time
 import random
 
@@ -68,83 +70,114 @@ class NewVisitorTest(LiveServerTestCase):
 
         # He is now re-directed to his dashboard
 
-    def test_dashboard(self):  
-        self.test_register_and_login()
+    # def test_dashboard(self):  
+    #     self.test_register_and_login()
         
-        # He can see there is button links to each of the features of the app
-        self.browser.find_element_by_css_selector('.timer')
-        self.browser.find_element_by_css_selector('.song_book')
-        self.browser.find_element_by_css_selector('.metronome ')
-        self.browser.find_element_by_css_selector('.tuner')
-        self.browser.find_element_by_css_selector('.log')
+    #     # He can see there is button links to each of the features of the app
+    #     self.browser.find_element_by_css_selector('.timer')
+    #     self.browser.find_element_by_css_selector('.song_book')
+    #     self.browser.find_element_by_css_selector('.metronome ')
+    #     self.browser.find_element_by_css_selector('.tuner')
+    #     self.browser.find_element_by_css_selector('.log')
 
-        # He can see links to the profile, settings and log out 
-        self.browser.find_element_by_css_selector('.profile')
-        self.browser.find_element_by_css_selector('.settings_link')
-        self.browser.find_element_by_css_selector('.logout')
+    #     # He can see links to the profile, settings and log out cal
+    #     self.browser.find_element_by_css_selector('.profile')
+    #     self.browser.find_element_by_css_selector('.settings_link')
+    #     self.browser.find_element_by_css_selector('.logout')
     
 
-    def test_dashboard_goals(self): 
-        self.test_register_and_login()
-        # He sees a section where he can set goals
+    # def test_dashboard_goals(self): 
+    #     self.test_register_and_login()
+    #     # He sees a section where he can set goals
 
-        # He starts by adding a goal with a due date
-        self.find_and_fill_2('goal_input', 'date_input', 'Learn the song Starman', '2021-08-01')
-        self.find_and_click('#add_button')
+    #     # He starts by adding a goal with a due date
+    #     self.find_and_fill_2('goal_input', 'date_input', 'Learn the song Starman', '2021-08-01')
+    #     self.find_and_click('#add_button')
 
-        # He sees that this goal and due date now appears on the page
-        self.check_in_goals_table('goal_cell', 'date_cell', 'Learn the song Starman', 'Aug. 1, 2021')
+    #     # He sees that this goal and due date now appears on the page
+    #     self.check_in_goals_table('goal_cell', 'date_cell', 'Learn the song Starman', 'Aug. 1, 2021')
 
-        # He then tries editing this goal to have different goal text and due date
-        self.find_and_click('.edit_button')
-        self.find_and_fill_2('goal_cell_edit', 'date_cell_edit', 'Learn the song Heroes', '2021-08-31')
-        self.find_and_click('#save_button')
+    #     # He then tries editing this goal to have different goal text and due date
+    #     self.find_and_click('.edit_button')
+    #     self.find_and_fill_2('goal_cell_edit', 'date_cell_edit', 'Learn the song Heroes', '2021-08-31')
+    #     self.find_and_click('#save_button')
 
-        # He sees that the goal and date have been sucessfully updated
-        self.check_in_goals_table('goal_cell', 'date_cell', 'Learn the song Heroes', 'Aug. 31, 2021')
+    #     # He sees that the goal and date have been sucessfully updated
+    #     self.check_in_goals_table('goal_cell', 'date_cell', 'Learn the song Heroes', 'Aug. 31, 2021')
 
-        # He adds another goal 
-        self.find_and_fill_2('goal_input', 'date_input', 'Master G Major Scale 1st Position', '2021-09-15')
-        self.find_and_click('#add_button')
+    #     # He adds another goal 
+    #     self.find_and_fill_2('goal_input', 'date_input', 'Master G Major Scale 1st Position', '2021-09-15')
+    #     self.find_and_click('#add_button')
 
-        # And sees this goal also appears sucessfully, along with the previously added goal
-        self.check_in_goals_table('goal_cell', 'date_cell', 'Master G Major Scale 1st Position', 'Sept. 15, 2021')
-        self.check_in_goals_table('goal_cell', 'date_cell', 'Learn the song Heroes', 'Aug. 31, 2021')
+    #     # And sees this goal also appears sucessfully, along with the previously added goal
+    #     self.check_in_goals_table('goal_cell', 'date_cell', 'Master G Major Scale 1st Position', 'Sept. 15, 2021')
+    #     self.check_in_goals_table('goal_cell', 'date_cell', 'Learn the song Heroes', 'Aug. 31, 2021')
 
-        # He ticks off that he completed this goal 
-        self.find_and_click('#checkbox')
+    #     # He ticks off that he completed this goal 
+    #     self.find_and_click('#checkbox')
 
-        # And he sees the goal now dissappears from the page
-        self.check_not_in_goals_table('goal_cell', 'date_cell', 'Learn the song Heroes', 'Aug. 31, 2021')
+    #     # And he sees the goal now dissappears from the page
+    #     self.check_not_in_goals_table('goal_cell', 'date_cell', 'Learn the song Heroes', 'Aug. 31, 2021')
 
-        # He tries adding another goal, this time omitting the due date
-        self.find_and_fill_1('goal_input', 'Learn the F barre chord')
-        self.find_and_click('#add_button')
+    #     # He tries adding another goal, this time omitting the due date
+    #     self.find_and_fill_1('goal_input', 'Learn the F barre chord')
+    #     self.find_and_click('#add_button')
 
-        # He sees that the date section now shows as 'None'
-        self.check_in_goals_table('goal_cell', 'date_cell', 'Learn the F barre chord', 'None')
+    #     # He sees that the date section now shows as 'None'
+    #     self.check_in_goals_table('goal_cell', 'date_cell', 'Learn the F barre chord', 'None')
        
-        # He then edits this goal to now set a due date 
-        self.find_and_click('.edit_button')
-        self.find_and_fill_2('goal_cell_edit', 'date_cell_edit', 'Learn the F barre chord', '2021-12-31')
-        self.find_and_click('#save_button')
+    #     # He then edits this goal to now set a due date 
+    #     self.find_and_click('.edit_button')
+    #     self.find_and_fill_2('goal_cell_edit', 'date_cell_edit', 'Learn the F barre chord', '2021-12-31')
+    #     self.find_and_click('#save_button')
         
-        # And sees this change sucessfully happens
-        self.check_in_goals_table('goal_cell', 'date_cell', 'Learn the F barre chord', 'Dec. 31, 2021')
+    #     # And sees this change sucessfully happens
+    #     self.check_in_goals_table('goal_cell', 'date_cell', 'Learn the F barre chord', 'Dec. 31, 2021')
 
-        # Ziggy tries to click add with an empty goal text input
-        self.find_and_fill_1('goal_input', '')
-        self.find_and_click('#add_button')
+    #     # Ziggy tries to click add with an empty goal text input
+    #     self.find_and_fill_1('goal_input', '')
+    #     self.find_and_click('#add_button')
 
-        # This fails and an alert pops up saying 'Please enter a goal.'
-        alert = self.browser.find_element_by_css_selector('.alert')
-        self.assertIn('Please enter a goal.', alert.text)
-        # self.fail('Finish the test!')  
-
-
-    # He can see a calendar showing what days he has practiced
+    #     # This fails and an alert pops up saying 'Please enter a goal.'
+    #     alert = self.browser.find_element_by_css_selector('.alert')
+    #     self.assertIn('Please enter a goal.', alert.text)
+    #     # self.fail('Finish the test!')  
 
 
 
+    def test_dashboard_calendar(self): 
+        self.test_register_and_login()
+        # He also sees a calendar to the right
 
-    
+        # He sees that the current day is highlighted on the calendar
+        cal = self.browser.find_element_by_id('calendar')
+        elements = cal.find_elements_by_tag_name('td')
+        today = datetime.today()
+        for element in elements:
+            if (element.text == str(today.day)):
+                today_tag = element
+                break
+            else:
+                today_tag = None
+        self.assertEqual(str(today.day), today_tag.text)
+        rgb_color = ImageColor.getcolor('#66ff66', 'RGB')
+        self.assertEqual(today_tag.value_of_css_property('background-color'), f'rgb{rgb_color}')
+
+        # Ziggy logs in the next day and sees yesterday's date has a different colour,
+        # to highlight that he logged in yesterday
+        yesterday = today - timedelta(days=1)
+        for element in elements:
+            if (element.text == str(yesterday.day)):
+                yesterday_tag = element
+                break
+            else:
+                yesterday_tag = None
+        self.assertEqual(str(yesterday.day), yesterday_tag.text)
+        rgb_color = ImageColor.getcolor('#66ff66', 'RGB')
+        self.assertEqual(yesterday_tag.value_of_css_property('background-color'), f'rgb{rgb_color}')
+
+        # When he logs in the following day, he sees the past two days have changed colour
+        
+        # Ziggy then misses a day and when logs in the following day he sees that 
+        # yesterday's date stays white, showing he didn't log in 
+        

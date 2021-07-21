@@ -1,3 +1,4 @@
+from users.models import MyUser
 from dashboard.views import dashboard
 from django.test import TestCase
 from dashboard.models import Goal
@@ -66,6 +67,25 @@ class DashboardTest(TestCase):
         self.goal_post('goal_input', 'date_input', '', 
         '', '/dashboard')
         self.assertEqual(Goal.objects.count(), 0)
+    
+    def test_background_color_of_today_changed(self):
+        pass
+
+    def test_login_day_stored_in_list(self):
+        # last_login field of user checked
+        user = MyUser.objects.first()
+        login_dates = LoginDate.all()
+        # date field extracted from this
+        # date field added to list containing days logged in
+        # list contains this day
+        pass
+
+    def test_multiple_consecutive_login_days_stored_in_list(self):
+        # last_login checked and date added to list
+        # last_login updated for next day and added to list
+        # last_login updated for next day and added to list
+        # list contains all 3 days
+        pass
     
 
 
