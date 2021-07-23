@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
+from django.db.models.deletion import CASCADE
 
 # Create your models here.
 class MyUserManager(BaseUserManager):
@@ -78,4 +79,10 @@ class MyUser(AbstractBaseUser):
         return fullname
 
 
-    
+class LoginDate(models.Model):
+    login_date = models.DateField()
+    user = models.ForeignKey(
+        MyUser,
+        related_name='login_dates',
+        on_delete=models.CASCADE,
+    )
