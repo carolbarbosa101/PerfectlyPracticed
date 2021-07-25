@@ -23,7 +23,7 @@ def dashboard(request, pk):
 
     cal = colour_calendar(pk=pk)
 
-    return render(request, 'dashboard/base_dashboard.html',{'goals':goals, 'cal':cal, 'invalid_entry':invalid_entry})
+    return render(request, 'dashboard/base_dashboard.html',{'goals':goals, 'cal':cal, 'invalid_entry':invalid_entry, 'user':the_user})
 
 def colour_calendar(pk):
     # get user object that this dashboard is specific to
@@ -58,6 +58,7 @@ def colour_calendar(pk):
     
     return cal
 
+@login_required
 def goal_tick(request, pk):
     goal = get_object_or_404(Goal, pk=pk)
     goal.completed = True

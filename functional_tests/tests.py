@@ -84,7 +84,15 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.find_element_by_css_selector('.profile')
         self.browser.find_element_by_css_selector('.settings_link')
         self.browser.find_element_by_css_selector('.logout')
-    
+
+        # He clicks the logout button and it redirects him back to the login page
+        self.find_and_click('.logout')
+        self.assertIn('Music Practice', self.browser.title)  
+
+        # When he tries to access the dashbaord again with a url, the website prompt for him to login again
+        self.browser.get('http://127.0.0.1:8000/dashboard/1/')
+        self.assertIn('Music Practice', self.browser.title)  
+
 
     def test_dashboard_goals(self): 
         self.test_register_and_login()

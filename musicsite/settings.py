@@ -135,6 +135,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# after successful login
 LOGIN_REDIRECT_URL = 'login_success'
+
+# the redirect to the login page after trying to access a login required page
 LOGIN_URL = 'login'
+
+LOGOUT_REDIRECT_URL = 'login'
 

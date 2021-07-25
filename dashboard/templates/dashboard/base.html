@@ -24,7 +24,7 @@
                         {% include './icons/music-svgrepo-com.svg' %}       
                     </div>
                     <div class="col-md-10" id="header_text">
-                        <h1><a href="/dashboard">
+                        <h1><a href="{% url 'dashboard' user.pk %}">
                             Perfectly Practiced
                         </a></h1>
                     </div>
