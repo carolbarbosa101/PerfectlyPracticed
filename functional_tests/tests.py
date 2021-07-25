@@ -5,7 +5,6 @@ from selenium.webdriver.common.keys import Keys
 from django.test import LiveServerTestCase
 from PIL import ImageColor
 import time
-import random
 from users.models import LoginDate, MyUser
 
 class NewVisitorTest(LiveServerTestCase):
@@ -99,7 +98,6 @@ class NewVisitorTest(LiveServerTestCase):
         self.check_in_goals_table('goal_cell', 'date_cell', 'Learn the song Starman', 'Aug. 1, 2021')
 
         # He then tries editing this goal to have different goal text and due date
-        time.sleep(2)
         self.find_and_click('.edit_button')
         self.find_and_fill_2('goal_cell_edit', 'date_cell_edit', 'Learn the song Heroes', '2021-08-31')
         self.find_and_click('#save_button')

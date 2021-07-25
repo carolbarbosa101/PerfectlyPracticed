@@ -9,14 +9,15 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def dashboard(request, pk):
+    the_user = MyUser.objects.get(pk=pk)
     invalid_entry = False
     if request.method == 'POST':
         if (request.POST['goal_input'] == '' and request.POST['date_input'] == ''):
             invalid_entry = True
         elif (request.POST['date_input'] == ''):
-            Goal.objects.create(text=request.POST['goal_input'])
+            Goal.objects.create(text=request.POST['goal_input'], user = the_user)
         else:
-            Goal.objects.create(text=request.POST['goal_input'] , due_date=request.POST['date_input'])
+            Goal.objects.create(text=request.POST['goal_input'] , due_date=request.POST['date_input'], user = the_user)
     
     goals = Goal.objects.filter(completed=False)
 
@@ -57,21 +58,22 @@ def colour_calendar(pk):
     
     return cal
 
-
 def goal_tick(request, pk):
     goal = get_object_or_404(Goal, pk=pk)
     goal.completed = True
     goal.save()
-    return redirect('/dashboard/1/')
+    user_pk = goal.user.pk
+    return redirect(f'/dashboard/{user_pk}/')
 
 @login_required
 def goal_edit(request, pk):
     goal = get_object_or_404(Goal, pk=pk)
+    user_pk = goal.user.pk
     if (goal.editing == False):
         goal.editing = True
         goal.save()
         goals = Goal.objects.filter(completed=False)
-        cal = colour_calendar(1)
+        cal = colour_calendar(user_pk)
         return render(request, 'dashboard/base_dashboard_edit.html',{'goals':goals, 'cal':cal})
     else:
         goal.editing = False
@@ -79,4 +81,4 @@ def goal_edit(request, pk):
         if (request.POST.get('date_cell_edit', '') != ''):
             goal.due_date = request.POST.get('date_cell_edit', goal.due_date)
         goal.save()
-        return redirect('/dashboard/1/')
+        return redirect(f'/dashboard/{user_pk}/')
