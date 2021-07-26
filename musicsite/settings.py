@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'crispy_forms',
-    'dashboard.apps.DashboardConfig'
+    'dashboard.apps.DashboardConfig',
+    'timer.apps.TimerConfig',
 ]
 
 AUTH_USER_MODEL = 'users.MyUser'

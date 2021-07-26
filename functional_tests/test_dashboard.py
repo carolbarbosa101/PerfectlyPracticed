@@ -1,36 +1,9 @@
+from .base import FunctionalTest
 from datetime import datetime, timedelta
-from selenium import webdriver
-from selenium.webdriver.firefox.webdriver import WebDriver
-from selenium.webdriver.common.keys import Keys
-from django.test import LiveServerTestCase
-from PIL import ImageColor
-import time
 from users.models import LoginDate, MyUser
-
-class NewVisitorTest(LiveServerTestCase):
-
-    def setUp(self):  
-        self.browser = webdriver.Firefox()
-
-    def tearDown(self):  
-        self.browser.quit()
-
-    def find_and_fill_1(self, name, input):
-        element = self.browser.find_element_by_name(name)
-        element.clear()
-        element.send_keys(input)
-
-    def find_and_fill_2(self, name_1, name_2, input_1, input_2):
-        element = self.browser.find_element_by_name(name_1)
-        element.clear()
-        element.send_keys(input_1)
-        element = self.browser.find_element_by_name(name_2)
-        element.clear()
-        element.send_keys(input_2)
+from PIL import ImageColor
     
-    def find_and_click(self, selector):
-        button = self.browser.find_element_by_css_selector(selector)
-        button.click()
+class DashboardTest(FunctionalTest):
     
     def check_in_goals_table(self, col_id_1, col_id_2, row_content_1, row_content_2):
         rows = self.browser.find_elements_by_id(col_id_1)
@@ -43,35 +16,10 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertNotIn(row_content_1, [row.text for row in rows])
         rows = self.browser.find_elements_by_id(col_id_2)
         self.assertNotIn(row_content_2, [row.text for row in rows])
-
-    def test_register_and_login(self):  
-        # Ziggy has heard about this cool new website to help with his guitar practice
-        # He opens his browser and goes to link
-        self.browser.get(self.live_server_url)
-
-        # He is presented with a login page with username and password textboxes
-        self.assertIn('Music Practice', self.browser.title)  
-
-        # Ziggy does not have an account so he chooses the sign up link that is below the entry fields
-        self.find_and_click('#sign_up')
-        
-        # He enters his details into the boxes and clicks the register button
-        self.find_and_fill_1('email', 'user1@test.com')
-        self.find_and_fill_1('first_name', 'User')
-        self.find_and_fill_1('last_name', 'Test')
-        self.find_and_fill_1('password1', 'PassTest123')
-        self.find_and_fill_1('password2', 'PassTest123')
-        self.find_and_click(".btn")
-
-        # He is redirected to the login page again now 
-        # Ziggy enters his details and sucessfully logs in
-        self.find_and_fill_2('username', 'password', 'user1@test.com', 'PassTest123')
-        self.find_and_click(".btn")
-
-        # He is now re-directed to his dashboard
+    
 
     def test_dashboard(self):  
-        self.test_register_and_login()
+        self.create_pre_authenticated_session('user1@test.com', 'PassTest123', 'User', 'Test')
         
         # He can see there is button links to each of the features of the app
         self.browser.find_element_by_css_selector('.timer')
@@ -90,12 +38,13 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('Music Practice', self.browser.title)  
 
         # When he tries to access the dashbaord again with a url, the website prompt for him to login again
-        self.browser.get('http://127.0.0.1:8000/dashboard/1/')
+        self.browser.get(self.live_server_url + '/dashboard/1/')
         self.assertIn('Music Practice', self.browser.title)  
 
 
     def test_dashboard_goals(self): 
-        self.test_register_and_login()
+        self.create_pre_authenticated_session('user1@test.com', 'PassTest123', 'User', 'Test')
+
         # He sees a section where he can set goals
 
         # He starts by adding a goal with a due date
@@ -170,7 +119,8 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertEqual(date_tag.value_of_css_property('background-color'), f'rgb{rgb_color}')
 
     def test_dashboard_calendar(self): 
-        self.test_register_and_login()
+        self.create_pre_authenticated_session('user1@test.com', 'PassTest123', 'User', 'Test')
+
         # He also sees a calendar to the right
 
         # He sees that the current day is highlighted and in bold on the calendar

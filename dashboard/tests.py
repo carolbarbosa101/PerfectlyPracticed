@@ -10,13 +10,6 @@ import datetime
 
 class GoalsTest(TestCase):
 
-    def just_sign_up(self):
-        self.client.post('/sign_up', data={'email': 
-        'user2@test.com', 'first_name':'User', 'last_name':'Test',
-        'password1':'PassTest123', 'password2':'PassTest123'})
-        url = '/dashboard/1/'
-        return url
-
     def sign_up_and_login_url(self):
         self.client.post('/sign_up', data={'email': 
         'user2@test.com', 'first_name':'User', 'last_name':'Test',
@@ -48,8 +41,12 @@ class GoalsTest(TestCase):
         return pk
     
     def test_login_required_to_access_dashboard(self):
-        url = self.just_sign_up()
-        redirect_response = self.client.get(url)
+        # just sign up, don't login
+        self.client.post('/sign_up', data={'email': 
+        'user2@test.com', 'first_name':'User', 'last_name':'Test',
+        'password1':'PassTest123', 'password2':'PassTest123'})
+        # after trying to access without login, we are redirected to the login page
+        redirect_response = self.client.get('/dashboard/1/')
         login_url = redirect_response.url
         login_response = self.client.get(login_url)
         self.assertTemplateUsed(login_response, 'users/login.html')

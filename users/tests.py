@@ -7,6 +7,20 @@ from users.models import MyUser
 # Create your tests here.
 class RegisterLoginTest(TestCase):
 
+    def sign_up_post(self):
+        response = self.client.post('/sign_up', data={'email': 
+        'user2@test.com', 'first_name':'User', 'last_name':'Test',
+        'password1':'PassTest123', 'password2':'PassTest123'})
+        return response
+
+    def sign_up_and_login(self):
+        self.client.post('/sign_up', data={'email': 
+        'user2@test.com', 'first_name':'User', 'last_name':'Test',
+        'password1':'PassTest123', 'password2':'PassTest123'})
+        response = self.client.post('/', data={'username': 
+        'user2@test.com','password':'PassTest123'})
+        return response
+
     def test_uses_login_template(self):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'users/login.html')
@@ -15,12 +29,6 @@ class RegisterLoginTest(TestCase):
         response = self.client.get('/sign_up')
         self.assertTemplateUsed(response, 'users/sign_up.html')
     
-    def sign_up_post(self):
-        response = self.client.post('/sign_up', data={'email': 
-        'user2@test.com', 'first_name':'User', 'last_name':'Test',
-        'password1':'PassTest123', 'password2':'PassTest123'})
-        return response
-
     def test_details_saved_after_post(self):
         self.sign_up_post()
         self.assertEqual(MyUser.objects.count(), 1)
@@ -36,9 +44,7 @@ class RegisterLoginTest(TestCase):
         self.assertEqual(response['location'], '/')
 
     def test_successful_login(self):
-        self.sign_up_post()
-        response = self.client.post('/', data={'username': 
-        'user2@test.com','password':'PassTest123'})
+        response = self.sign_up_and_login()
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response['location'], '/login_success')
     
