@@ -21,7 +21,7 @@ class GoalsTest(TestCase):
         return url
     
     def goal_post(self, goal_input, date_input, goal_value, date_value, url):
-        response = self.client.get(url)
+        self.client.get(url)
         response = self.client.post(url, data={goal_input : goal_value, 
         date_input : date_value})
         return response

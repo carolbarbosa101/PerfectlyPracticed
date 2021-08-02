@@ -1,0 +1,19 @@
+#task_input{
+    font-size: medium;
+    /* margin-top: 13px; */
+}
+#time_input{
+    font-size: medium;
+    width: 80px;
+    /* margin-top: 6px; */
+}
+
+#add_button{
+    font-size: medium;
+    width: 30px;
+    /* margin-right: 5px; */
+}
+
+#colour_pick{
+    width: 30px;
+}
