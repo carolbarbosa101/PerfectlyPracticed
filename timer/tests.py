@@ -1,4 +1,4 @@
-from timer.models import Task
+from timer.models import Task, Timer
 from django.test import TestCase
 from users.models import MyUser
 from users.tests import RegisterLoginTest as rl
@@ -26,5 +26,17 @@ class TimerTest(TestCase):
         self.task_post('task_input', 'time_input', 'Starman chords', 15, '/timer/1/')
         new_item = Task.objects.first()
         self.check_task_and_time(new_item.text, new_item.time, 'Starman chords', 15)
+    
+    def test_time_input_saved_to_timer_variable(self):
+        rl.sign_up_and_login(self)
+        self.client.get('/timer/1/')
+        self.task_post('task_input', 'time_input', 'Starman chords', 15, '/timer/1/')
+        timer = Timer.objects.first()
+        self.assertEqual(timer.total_time, 15)
+        self.task_post('task_input', 'time_input', 'G Major Scale', 10, '/timer/1/')
+        timer = Timer.objects.first()
+        self.assertEqual(timer.total_time, 25)
+
+
 
 

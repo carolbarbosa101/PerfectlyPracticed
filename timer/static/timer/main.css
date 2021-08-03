@@ -17,3 +17,38 @@
 #colour_pick{
     width: 30px;
 }
+
+#timer_section{
+    height: 1000px;
+    width: 1000px;
+}
+
+.timer_svg{
+    height: 1000px;
+    width: 1000px;
+}
+
+.timer_group{
+    fill: none;
+    stroke: none;
+}
+
+.timer_circle{
+    stroke-width: 20px;
+    stroke: grey;
+}
+
+#timer_label{
+    position: absolute;
+    font-size: 100px;
+    left: 350px;
+    bottom: 600px;
+}
+
+#timer_button{
+    position: absolute;
+    left: 420px;
+    bottom: 250px;
+    transform: scale(2);
+
+}

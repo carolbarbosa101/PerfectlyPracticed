@@ -1,7 +1,6 @@
 from dashboard.models import Goal
 from django.shortcuts import get_object_or_404, redirect, render
 import datetime 
-from calendar import HTMLCalendar
 from dashboard.my_calendar import CustomCal
 from users.models import MyUser, LoginDate
 from django.contrib.auth.decorators import login_required

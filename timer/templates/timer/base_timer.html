@@ -56,6 +56,22 @@
             {% endfor %}
     </div>
     <div class="col-md-8" id="timer_section">
+        <svg  class="timer_svg" xmlns="http://www.w3.org/2000/svg">
+            <g class="timer_group">
+                <circle class="timer_circle" cx="430" cy="320" r="300">
+
+                </circle>
+            </g>
+        </svg>
+        <span id="timer_label"></span>
+        {{total_time|json_script:"total_time_id"}}
+        <button class="btn btn-success" id="timer_button">
+            Start
+        </button>
     </div>
 </div>
 {% endblock content %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'timer/script.js' %}"></script>
+{% endblock js %}

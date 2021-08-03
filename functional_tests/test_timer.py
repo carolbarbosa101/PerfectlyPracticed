@@ -1,4 +1,5 @@
 from .base import FunctionalTest
+import time
 
 class TimerTest(FunctionalTest):
 
@@ -30,12 +31,17 @@ class TimerTest(FunctionalTest):
         time_remaining = self.browser.find_element_by_css_selector('#timer_label')
         self.assertEqual(time_remaining.text , '15:00')
 
-        # The colour of the task item listed matches the line inside the timer as well
-        # self.assertEqual(task_item.colour , '#FF0000')
-
-
         # He then clicks the start button and the countdown begins
-        # self.find_and_click('timer_button')
+        self.find_and_click('#timer_button')
+        self.assertEqual(time_remaining.text , '15:00')
+
+        # After 2 seconds he clicks the stop button and the countdown pauses
+        time.sleep(2)
+        self.find_and_click('#timer_button')
+        self.assertEqual(time_remaining.text , '14:58')
+
+        # He sees that the colour of the task item listed matches the line inside the timer
+        # self.assertEqual(task_item.colour , '#FF0000')
 
         # He sees the coloured ring decrease in circumference as time elapses
 
