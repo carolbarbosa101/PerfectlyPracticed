@@ -14,7 +14,7 @@
     /* margin-right: 5px; */
 }
 
-#colour_pick{
+#colour_input{
     width: 30px;
 }
 
@@ -33,22 +33,22 @@
     stroke: none;
 }
 
-.timer_circle{
-    stroke-width: 20px;
-    stroke: grey;
-}
-
 #timer_label{
     position: absolute;
     font-size: 100px;
-    left: 350px;
+    left: 330px;
     bottom: 600px;
 }
 
 #timer_button{
     position: absolute;
     left: 420px;
-    bottom: 250px;
+    bottom: 270px;
     transform: scale(2);
 
+}
+
+.timer_circle{
+    stroke-width: 20;
+    fill: none;
 }

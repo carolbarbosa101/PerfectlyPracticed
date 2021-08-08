@@ -68,7 +68,7 @@ class GoalsTest(TestCase):
         self.test_goal_saved_after_post()
         self.assertEqual(Goal.objects.count(), 1)
         self.goal_post('goal_cell_edit', 'date_cell_edit', 'Learn the song Heroes', 
-        '2021-08-31', '/goal_edit/1/')
+        '2021-08-31', '/dashboard/goal_edit/1/')
         edit_goal = Goal.objects.first()
         self.check_goal_and_date(edit_goal.text, edit_goal.due_date, 'Learn the song Heroes', datetime.date(2021, 8, 31))
     
@@ -83,7 +83,7 @@ class GoalsTest(TestCase):
     
     def test_goal_ticked(self):
         self.test_second_goal_added()
-        self.client.post('/goal_tick/1/')
+        self.client.post('/dashboard/goal_tick/1/')
         completed_goal = Goal.objects.get(pk=1)
         self.assertTrue(completed_goal.completed)
 
@@ -97,7 +97,7 @@ class GoalsTest(TestCase):
     def test_blank_due_date_edited(self):
         self.test_blank_due_date_inserted()
         self.goal_post('goal_cell_edit', 'date_cell_edit', 'Learn the F barre chord', 
-        '2021-12-31', '/goal_edit/1/')
+        '2021-12-31', '/dashboard/goal_edit/1/')
         edit_goal = Goal.objects.first()
         self.check_goal_and_date(edit_goal.text, edit_goal.due_date, 'Learn the F barre chord', datetime.date(2021, 12, 31))
 

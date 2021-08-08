@@ -21,7 +21,7 @@
                 <label for="time_input">Time (mins):</label>
             </div>
         </div>
-        <form method="POST">
+        <form method="POST" id="task_form">
             <div class="row">
                 <div class="col-md-7">
                     <div class="input-group input-group-lg">
@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <input type="color" id="colour_pick" name="colour_pick" value="#ff0000">
+                    <input type="color" id="colour_input" name="colour_input" value="#ff0000">
                     <button type="submit" class="btn btn-outline-success btn-sm" id="add_button"> 
                         +
                     </button>
@@ -42,10 +42,10 @@
             </div>
             {% csrf_token %}
         </form><br><br>
-            {% for task_item in task_items %}
+            {% for task in tasks %}
                 <ul class="list-group">
-                    <li id="task_item" class="list-group-item d-flex justify-content-between align-items-center">
-                        {{ task_item }}
+                    <li id="task_item_{{ forloop.counter0 }}" class="list-group-item d-flex justify-content-between align-items-center" style="background-color:{{task.colour}}80">
+                        {{task.text}} : {{task.time}} mins
                         <span class="badge badge-danger badge-pill">
                             <a id="delete_button"> 
                                 x
@@ -57,14 +57,12 @@
     </div>
     <div class="col-md-8" id="timer_section">
         <svg  class="timer_svg" xmlns="http://www.w3.org/2000/svg">
-            <g class="timer_group">
-                <circle class="timer_circle" cx="430" cy="320" r="300">
-
-                </circle>
-            </g>
+            <g class="timer_group"></g>
         </svg>
         <span id="timer_label"></span>
-        {{total_time|json_script:"total_time_id"}}
+        {{total_time|json_script:"total_time"}}
+        {{time_list|json_script:"time_list"}}
+        {{colour_list|json_script:"colour_list"}}
         <button class="btn btn-success" id="timer_button">
             Start
         </button>
@@ -73,5 +71,11 @@
 {% endblock content %}
 
 {% block js %}
-    <script type="text/javascript" src="{% static 'timer/script.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{% static '/timer/timer.js' %}"></script>
+    {% comment %} <script>
+        $(document).ready(function () {
+        window.Musicsite.initialize();
+        });
+    </script>  {% endcomment %}
 {% endblock js %}

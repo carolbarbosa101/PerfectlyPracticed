@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Javascript tests</title>
+  <link rel="stylesheet" href="qunit-2.16.0.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+
+  <script src="/home/anwin/axr005/timer/static/timer/jquery-3.6.0.min.js"></script>
+  <script src="/home/anwin/axr005/timer/static/timer/timer.js"></script>
+  <script src="qunit-2.16.0.js"></script>
+
+  <script>
+
+    QUnit.test("Total time received", function (assert) {
+      console.log('in test 1');
+      window.Musicsite.initialize();
+      import {totalTime} from '/home/anwin/axr005/timer/static/timer/timer.js';
+      assert.equal(totalTime, 15);
+    });
+    // test total time is received
+    // test task time is received
+    // test colour is received
+    // test segment size & offsets calculated correctly
+
+
+  </script>
+</body>
+</html>

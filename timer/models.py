@@ -14,7 +14,7 @@ class Timer(models.Model):
 class Task(models.Model):
     text = models.TextField(default='')
     time = models.PositiveIntegerField()
-    editing = models.BooleanField(default=False)
+    colour = models.TextField(default='')
 
     timer = models.ForeignKey(
         Timer,
