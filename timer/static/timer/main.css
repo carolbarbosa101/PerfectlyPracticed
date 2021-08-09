@@ -36,19 +36,26 @@
 #timer_label{
     position: absolute;
     font-size: 100px;
-    left: 330px;
+    left: 340px;
     bottom: 600px;
 }
 
 #timer_button{
     position: absolute;
-    left: 420px;
+    left: 430px;
     bottom: 270px;
     transform: scale(2);
 
 }
 
 .timer_circle{
-    stroke-width: 20;
+    stroke-width: 30;
     fill: none;
+}
+
+#circle_top_path{
+    transform: rotate(90deg);
+    transform-origin: left;
+
+    transition: 1s linear all;
 }

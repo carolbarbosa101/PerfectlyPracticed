@@ -1,4 +1,4 @@
-from timer.models import Task, Timer
+from timer.models import Task
 from django.test import TestCase
 from users.models import MyUser
 from users.tests import RegisterLoginTest as rl
@@ -27,20 +27,31 @@ class TimerTest(TestCase):
         new_item = Task.objects.first()
         self.check_task_and_time(new_item.text, new_item.time, 'Starman chords', 15)
     
-    def test_time_input_saved_to_timer_variable(self):
+    def test_multiple_inputs_saved(self):
         rl.sign_up_and_login(self)
         self.client.get('/timer/1/')
         self.task_post('task_input', 'time_input', 'colour_input', 'Starman chords', 15, '#ff0000', '/timer/1/')
-        timer = Timer.objects.first()
-        self.assertEqual(timer.total_time, 15)
+        new_item = Task.objects.get(text = 'Starman chords')
+        self.check_task_and_time(new_item.text, new_item.time, 'Starman chords', 15)
         self.task_post('task_input', 'time_input', 'colour_input', 'G Major Scale', 10, '#00ff00', '/timer/1/')
-        timer = Timer.objects.first()
-        self.assertEqual(timer.total_time, 25)
+        new_item = Task.objects.get(text = 'G Major Scale')
+        self.check_task_and_time(new_item.text, new_item.time, 'G Major Scale', 10)
     
     def test_colour_input_saved(self):
         self.test_task_and_time_input_saved()
         new_item = Task.objects.first()
         self.assertEqual(new_item.colour, '#ff0000')
+    
+    def test_task_deletion(self):
+        self.test_multiple_inputs_saved()
+        the_user = MyUser.objects.get(pk=1)
+        tasks = Task.objects.filter(user=the_user)
+        self.assertEqual(tasks.count(), 2)
+        self.client.post('/timer/1/task_delete/2/')
+        self.assertEqual(tasks.count(), 1)
+
+
+
     
 
 

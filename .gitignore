@@ -4,3 +4,6 @@ virtualenv
 __pycache__
 .*pyc
 .vscode
+jquery-3.6.0.min.js
+qunit-2.16.0.css
+qunit-2.16.0.js

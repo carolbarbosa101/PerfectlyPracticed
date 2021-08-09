@@ -23,7 +23,6 @@ class TimerTest(FunctionalTest):
         # And into the right input he sets the duration of time he wants to practice this
         self.find_and_fill_2('task_input', 'time_input', 'Starman chords', '15')
         self.find_and_fill_1('colour_input', 'rgb(255,0,0)')
-        time.sleep(2)
         self.find_and_click('#add_button')
 
         # Upon adding this, he sees that the task and time have been listed below the input box 
@@ -45,36 +44,51 @@ class TimerTest(FunctionalTest):
         self.find_and_click('#timer_button')
         self.assertEqual(time_remaining.text , '14:58')
 
-        # H refreshes the page and sees the time reset / after adding a new task the page refreshes
 
         # He add another task to the timer now 
+        # After adding a new task the page refreshes resetting the timer 
         self.find_and_fill_2('task_input', 'time_input', 'G Major Scale Improv', '10')
         self.find_and_fill_1('colour_input', 'rgb(0,255,0)')
-        time.sleep(2)
         self.find_and_click('#add_button')
         task_item_1 = self.browser.find_element_by_css_selector('#task_item_1')
         colour_item_1 = Color.from_string(task_item_1.value_of_css_property('background-color')).hex
 
 
         # He now sees that the timer itself has its circle segmented into rings corresponding to each task
-        # With the size of the ring being proportional to the time allocated to the task
-        group = self.browser.find_elements_by_css_selector('.timer_circle')
-        self.assertEqual(len(group), 3)
+        # With the size of the segments being proportional to the time allocated to the task
+        # (offset of current task corresponds to fraction of previous task)
+
+        circle_1 = self.browser.find_element_by_css_selector('#circle_1')
+        offset_1 = float(circle_1.get_attribute('stroke-dashoffset'))
+        predicted_fraction_0 = round(abs(offset_1) / 1885, 2)
+        actual_fraction_0 = 15/25
+        self.assertEqual(predicted_fraction_0, actual_fraction_0)
+
+        # And the time in the centre corresponding to the total time of the two tasks
+        time_remaining = self.browser.find_element_by_css_selector('#timer_label')
+        self.assertEqual(time_remaining.text , '25:00')
 
         # The colour of the task item listed also matches the colour of these segments
-        self.assertIn('#ff0000', colour_item_0)
-        self.assertIn('#00ff00', colour_item_1)
+        # self.assertIn('#ff0000', colour_item_0)
+        # self.assertIn('#00ff00', colour_item_1)
 
         # Once he hits start again he notices sees that the ring decreases in circumference as time elapses
+        self.find_and_click('#timer_button')
+        circle_top_path = self.browser.find_element_by_css_selector('#circle_top_path')
+        top_offset = float(circle_top_path.get_attribute("stroke-dashoffset"))
+        # offset is full circumference at the start
+        self.assertEqual(top_offset, -1885)
+        time.sleep(3)
+        # after 3 seconds the offset has decreased to decrease the timer circumference
+        top_offset = round(float(circle_top_path.get_attribute("stroke-dashoffset")))
+        self.assertAlmostEqual(top_offset, -1881)
 
-        # Ziggy then decides he wants to practice something else so he adds another input
+        # Ziggy then decides to remove one of the tasks, so clicks the delete button on the task item
+        # He sees the timer update to reflect the deletion
+        self.find_and_click('#delete_button_1')
+        time_remaining = self.browser.find_element_by_css_selector('#timer_label')
+        self.assertEqual(time_remaining.text , '15:00') 
 
-        # The timer changes again to have two different colours split into the fraction of time
-        # each tasks is designated
-
-        # And the time in the middle is set to be the total of the 2 tasks 
-
-        # Ziggy adds a final task which is again changes the timer in a similar fashion 
 
 
 

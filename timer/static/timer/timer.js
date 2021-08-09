@@ -8,23 +8,32 @@
 //     export {totalTime};
 //   };
 
-let totalTime = JSON.parse(document.getElementById('total_time').textContent);
-
 let timeString = JSON.parse(document.getElementById('time_list').textContent);
 let timeList = timeString.substring(1, (timeString.length - 1)).split(', ');
-console.log(timeList);
 
 let colourString = JSON.parse(document.getElementById('colour_list').textContent);
 colourString = colourString.replace(/["]/g, "");
 let colourList = colourString.substring(1, (colourString.length - 1)).split(', ');
-console.log(colourList);
 
 let timePassed = 0;
-let timeLeft = totalTime * 60;
+let totalTime = calculateTotalTime();
+let timeLeft = totalTime;
 let timerInterval = null;
 const RADIUS = 300;
 const CIRCUMFERENCE = 2*Math.PI*RADIUS;
 
+function calculateTotalTime(){
+  // for initial time label with no tasks, set 0
+  if(timeString === '[]'){
+    console.log('test')
+    return 0;
+  }
+  var total = 0;
+  for(let i = 0; i < timeList.length; i++){
+    total += parseInt(timeList[i]);
+  }
+  return total * 60;
+}
 
 function calculateOffsets(){
   var offsets = [];
@@ -34,7 +43,7 @@ function calculateOffsets(){
 
   for(let i = 0; i < timeList.length; i++){
     // get fractions of circle of each task time
-    circleFractions.push((timeList[i]/totalTime) * CIRCUMFERENCE);
+    circleFractions.push((timeList[i]/(totalTime/60)) * CIRCUMFERENCE);
   }
 
   for(let i = 0; i < timeList.length; i++){
@@ -47,8 +56,6 @@ function calculateOffsets(){
       prevOffset = offset;
     }
   }
-
-  console.log(offsets);
   return offsets;
 }
 
@@ -62,17 +69,39 @@ function generateCircles(){
   for(let i = 0; i < offsets.length; i++){
     circlesList.push(
     `<circle id="circle_${i}" class="timer_circle" cx="440" cy="320" r="300" 
-    transform="rotate(-90, 440, 320)" stroke="${colourList[i]}CC" stroke-dasharray="1885" stroke-dashoffset="${offsets[i]}"/>`
+     transform="rotate(-90, 440, 320)" stroke="${colourList[i]}CC" stroke-dasharray="1885" stroke-dashoffset="${offsets[i]}"/>`
       )
   }
+  circlesList.push(
+    `<circle id="circle_top" class="timer_circle" cx="440" cy="320" r="300"/>
+    <path
+        id="circle_top_path"
+        class="timer_circle"
+        stroke="grey" 
+        stroke-dasharray="1885" 
+        stroke-dashoffset="-1885" 
+        d="
+        M -180, 60
+        m -300, 0
+        a 300,300 0 1,0 600,0
+        a 300,300 0 1,0 -600,0
+        "
+    ></path>`
+      )
 
 var circlesHTML = circlesList.join("\n");
 
-console.log(circlesHTML);
-  
   $('.timer_group').html(
     circlesHTML
   )
+}
+
+function animateCircle(){
+  var fraction = timeLeft / totalTime;
+  fraction = fraction - (1/totalTime) * (1 - fraction);
+  offset = fraction * CIRCUMFERENCE;
+
+  $('#circle_top_path').attr('stroke-dashoffset', `-${offset}`)
 }
 
 function formatTimeLeft(time) {   
@@ -82,6 +111,9 @@ function formatTimeLeft(time) {
   
   if (seconds < 10) {
     seconds = `0${seconds}`;
+  }
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
   }
   
   return `${minutes}:${seconds}`;
@@ -96,17 +128,18 @@ function startTimer(){
     
     timerInterval = setInterval(() => {
       timePassed += 1;
-      timeLeft = (totalTime * 60) - timePassed;
-      if(timePassed == totalTime * 60){
-        clearInterval(timerInterval);
+      timeLeft = totalTime - timePassed;
+      if(timePassed == totalTime + 1){
         alert("Time's Up!")
+        clearInterval(timerInterval);
         location.reload();
       }
-    $('#timer_label').html(formatTimeLeft(timeLeft));
+      $('#timer_label').html(formatTimeLeft(timeLeft));
+      
+      animateCircle();
+      
+    }, 1000);
 
-    generateCircles();
-
-  }, 1000);
 }
 
 function stopTimer(){
