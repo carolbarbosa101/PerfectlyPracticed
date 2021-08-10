@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'dashboard.apps.DashboardConfig',
     'timer.apps.TimerConfig',
+    'song_book.apps.SongBookConfig',
 ]
 
 AUTH_USER_MODEL = 'users.MyUser'
