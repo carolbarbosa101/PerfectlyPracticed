@@ -49,6 +49,7 @@ class TimerTest(TestCase):
         self.assertEqual(tasks.count(), 2)
         self.client.post('/timer/1/task_delete/2/')
         self.assertEqual(tasks.count(), 1)
+    
 
 
 

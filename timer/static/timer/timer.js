@@ -120,6 +120,16 @@ function formatTimeLeft(time) {
 }  
 
 function startTimer(){
+  // if no tasks entered then alert and don't start timer
+  if(timeString === '[]'){
+    alert("Please enter a task.")
+    return
+  }
+  
+  $('#start_sound').prop('muted', false);
+  $('#start_sound')[0].play();
+
+  // change to stop button upon click
   $('#timer_button').replaceWith(
     "<button class='btn btn-danger' id='timer_button'>Stop</button>"
     );
@@ -129,18 +139,16 @@ function startTimer(){
     timerInterval = setInterval(() => {
       timePassed += 1;
       timeLeft = totalTime - timePassed;
-      if(timePassed == totalTime + 1){
-        alert("Time's Up!")
+      if(timePassed == totalTime ){
         clearInterval(timerInterval);
-        location.reload();
+        timesUp();
       }
       $('#timer_label').html(formatTimeLeft(timeLeft));
-      
       animateCircle();
-      
     }, 1000);
 
 }
+
 
 function stopTimer(){
   $('#timer_button').replaceWith(
@@ -151,8 +159,15 @@ function stopTimer(){
     $('#timer_button').click(startTimer)
   }
   
+  function timesUp(){
+    $('#end_sound').prop('muted', false);
+    $('#end_sound')[0].play();
+    $(".modal").modal();
+  }
   
   document.addEventListener('DOMContentLoaded', function() {
+    $('#start_sound').prop('muted', true)
+    $('#end_sound').prop('muted', true)
     $('#timer_label').html(formatTimeLeft(timeLeft));
     $('#timer_button').click(startTimer);
     generateCircles();
