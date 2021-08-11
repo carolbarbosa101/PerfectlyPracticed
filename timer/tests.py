@@ -22,14 +22,12 @@ class TimerTest(TestCase):
 
     def test_task_and_time_input_saved(self):
         rl.sign_up_and_login(self)
-        self.client.get('/timer/1/')
         self.task_post('task_input', 'time_input', 'colour_input', 'Starman chords', 15, '#ff0000', '/timer/1/')
         new_item = Task.objects.first()
         self.check_task_and_time(new_item.text, new_item.time, 'Starman chords', 15)
     
     def test_multiple_inputs_saved(self):
         rl.sign_up_and_login(self)
-        self.client.get('/timer/1/')
         self.task_post('task_input', 'time_input', 'colour_input', 'Starman chords', 15, '#ff0000', '/timer/1/')
         new_item = Task.objects.get(text = 'Starman chords')
         self.check_task_and_time(new_item.text, new_item.time, 'Starman chords', 15)

@@ -11,13 +11,152 @@
 {% endblock sheet %}
 
 {% block content%}
-<div class="row">
-    <div class="col-md-6">
+<div class="row" id="board">
+    <div class="col-md-3" id="to_learn">
+        <h3 class="list_title" id="to_learn_title">To Learn</h3>
+        <ul class="list-group" id="to_learn_list">
+            {% for song in songs %}
+                {% if song.status == 'to_learn' %}
+                    <li id="song_item" class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ song.text }}
+                        <a class="badge badge-danger badge-pill" href="{% url 'song_delete' user.pk song.pk %}" 
+                        id="to_learn_delete"> 
+                            x
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <br>
+        <form method="POST" action="{% url 'song_post' user.pk 1 %}">
+            <div class="input-group mb-3">
+                <input name="to_learn_input" id="to_learn_input" type="text" class="form-control" placeholder="A song you want to learn" aria-label="Song" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button id="to_learn_submit" class="btn btn-outline-success" type="submit">+</button>
+                </div>
+            </div>
+        {% csrf_token %}
+        </form>
     </div>
-    <div class="col-md-6">
+
+    <div class="col-md-3" id="learning">
+        <h3 class="list_title" id="learning_title">Learning</h3>
+        <ul class="list-group" id="learning_list">
+            {% for song in songs %}
+                {% if song.status == 'learning' %}
+                    <li id="song_item" class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ song.text }}
+                        <a class="badge badge-danger badge-pill" href="{% url 'song_delete' user.pk song.pk %}" 
+                        id="learning_delete"> 
+                            x
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <br>
+        <form method="POST" action="{% url 'song_post' user.pk 2 %}">
+            <div class="input-group mb-3">
+                <input name="learning_input" id="learning_input" type="text" class="form-control" placeholder="A song you're learning" aria-label="Song" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button id="learning_submit" class="btn btn-outline-success" type="submit">+</button>
+                </div>
+            </div>
+        {% csrf_token %}
+        </form>
+    </div>
+
+    <div class="col-md-3" id="learned">
+        <h3 class="list_title" id="learned_title">Learned</h3>
+        <ul class="list-group" id="learned_list">
+            {% for song in songs %}
+                {% if song.status == 'learned' %}
+                    <li id="song_item" class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ song.text }}
+                        <a class="badge badge-danger badge-pill" href="{% url 'song_delete' user.pk song.pk %}" 
+                        id="learned_delete"> 
+                            x
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <br>
+        <form method="POST" action="{% url 'song_post' user.pk 3 %}">
+            <div class="input-group mb-3">
+                <input name="learned_input" id="learned_input" type="text" class="form-control" placeholder="A song you've learned" aria-label="Song" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button id="learned_submit" class="btn btn-outline-success" type="submit">+</button>
+                </div>
+            </div>
+        {% csrf_token %}
+        </form>
+    </div>
+    
+    <div class="col-md-3" id="rusty">
+        <h3 class="list_title" id="rusty_title">Rusty</h3>
+        <ul class="list-group" id="rusty_list">
+            {% for song in songs %}
+                {% if song.status == 'rusty' %}
+                    <li id="song_item" class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ song.text }}
+                        <a class="badge badge-danger badge-pill" href="{% url 'song_delete' user.pk song.pk %}" 
+                        id="rusty_delete"> 
+                            x
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <br>
+        <form method="POST" action="{% url 'song_post' user.pk 4 %}">
+            <div class="input-group mb-3">
+                <input name="rusty_input" id="rusty_input" type="text" class="form-control" placeholder="A song you need to re-visit" aria-label="Song" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button id="rusty_submit" class="btn btn-outline-success" type="submit">+</button>
+                </div>
+            </div>
+        {% csrf_token %}
+        </form>
     </div>
 </div>
 {% endblock content %}
 
 {% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js" integrity="sha512-zYXldzJsDrNKV+odAwFYiDXV2Cy37cwizT+NkuiPGsa9X1dOz04eHvUWVuxaJ299GvcJT31ug2zO4itXBjFx4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    Sortable.create(to_learn, { 
+        animation: 150, 
+        group: 'song_book', 
+        draggable: '.list-group-item', 
+        handle: '.list-group-item',
+        sort: true,  
+        chosenClass: 'active' 
+    });
+    Sortable.create(learning, { 
+        animation: 150, 
+        group: 'song_book', 
+        draggable: '.list-group-item', 
+        handle: '.list-group-item',
+        sort: true,  
+        chosenClass: 'active' 
+    });
+    Sortable.create(learned, { 
+        animation: 150, 
+        group: 'song_book', 
+        draggable: '.list-group-item', 
+        handle: '.list-group-item',
+        sort: true,  
+        chosenClass: 'active' 
+    });
+    Sortable.create(rusty, { 
+        animation: 150, 
+        group: 'song_book', 
+        draggable: '.list-group-item', 
+        handle: '.list-group-item',
+        sort: true,  
+        chosenClass: 'active' 
+    });
+</script>
+{% comment %} Sortable js {% endcomment %}
 {% endblock js %}

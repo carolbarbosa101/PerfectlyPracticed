@@ -1,0 +1,21 @@
+.list_title{
+    text-align: center;
+}
+
+#to_learn_title{
+    background-color: salmon;
+}
+#learning_title{
+    background-color: palegoldenrod;
+}
+#learned_title{
+    background-color: #77dd77
+}
+#rusty_title{
+    background-color: burlywood;
+}
+
+.list-group-item{
+    cursor: -webkit-grabbing;
+}
+

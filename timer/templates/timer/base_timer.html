@@ -34,10 +34,12 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <input type="color" id="colour_input" name="colour_input" value="#ff0000">
-                    <button type="submit" class="btn btn-outline-success btn-sm" id="add_button"> 
-                        +
-                    </button>
+                    <div class="input-group">
+                        <div class="input-group-append">
+                            <input type="color" id="colour_input" name="colour_input" value="#ff0000">
+                            <button id="add_button" class="btn btn-outline-success" type="submit">+</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             {% csrf_token %}
