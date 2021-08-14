@@ -24,4 +24,5 @@ urlpatterns = [
     path('', include('dashboard.urls')), 
     path('', include('timer.urls')), 
     path('', include('song_book.urls')), 
+    path('', include('metronome.urls')), 
 ]

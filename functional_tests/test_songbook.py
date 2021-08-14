@@ -24,7 +24,7 @@ class SongBookTest(FunctionalTest):
         self.find_and_click('#learning_submit')
 
         # The element appears in this section now after adding 
-        song = self.browser.find_element_by_css_selector('#song_5_1') # user_pk = 5 due to 5th login with all tests
+        song = self.browser.find_element_by_css_selector('#song_6_1') # user_pk = 6 due to 6th login with all tests
         self.assertIn('Starman', song.text)
 
         # He adds in a few more songs into different sections

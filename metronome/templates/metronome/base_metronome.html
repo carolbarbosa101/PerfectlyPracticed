@@ -1,0 +1,17 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Metronome</title>
+{% endblock title %}
+
+{% block sheet %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'metronome/main.css' %}"/>
+{% endblock sheet %}
+
+{% block content%}
+{% endblock content %}
+
+{% block js %}
+{% endblock js %}

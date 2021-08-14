@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'dashboard.apps.DashboardConfig',
     'timer.apps.TimerConfig',
     'song_book.apps.SongBookConfig',
+    'metronome.apps.MetronomeConfig',
 ]
 
 AUTH_USER_MODEL = 'users.MyUser'
