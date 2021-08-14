@@ -15,22 +15,20 @@
     <div class="col-md-3" id="to_learn">
         <h3 class="list_title" id="to_learn_title">To Learn</h3>
         <ul class="list-group" id="to_learn_list">
-            {% for song in songs %}
-                {% if song.status == 'to_learn' %}
-                    <li id="song_item" class="list-group-item d-flex justify-content-between align-items-center">
-                            {{ song.text }}
-                        <a class="badge badge-danger badge-pill" href="{% url 'song_delete' user.pk song.pk %}" 
-                        id="to_learn_delete"> 
-                            x
-                        </a>
-                    </li>
-                {% endif %}
+            {% for song in to_learn_songs %}
+                <li id="song_{{user.pk}}_{{song.pk}}" class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ song.text }}
+                    <a class="badge badge-danger badge-pill" href="{% url 'song_delete' user.pk song.pk %}" 
+                    id="to_learn_delete"> 
+                        x
+                    </a>
+                </li>
             {% endfor %}
         </ul>
         <br>
-        <form method="POST" action="{% url 'song_post' user.pk 1 %}">
+        <form method="POST" action="{% url 'song_post' user.pk 'to_learn' %}">
             <div class="input-group mb-3">
-                <input name="to_learn_input" id="to_learn_input" type="text" class="form-control" placeholder="A song you want to learn" aria-label="Song" aria-describedby="basic-addon2">
+                <input name="to_learn_input" id="to_learn_input" type="text" class="form-control" placeholder="A song you want to learn" aria-label="Song" aria-describedby="basic-addon2" required>
                 <div class="input-group-append">
                     <button id="to_learn_submit" class="btn btn-outline-success" type="submit">+</button>
                 </div>
@@ -42,22 +40,20 @@
     <div class="col-md-3" id="learning">
         <h3 class="list_title" id="learning_title">Learning</h3>
         <ul class="list-group" id="learning_list">
-            {% for song in songs %}
-                {% if song.status == 'learning' %}
-                    <li id="song_item" class="list-group-item d-flex justify-content-between align-items-center">
-                            {{ song.text }}
-                        <a class="badge badge-danger badge-pill" href="{% url 'song_delete' user.pk song.pk %}" 
-                        id="learning_delete"> 
-                            x
-                        </a>
-                    </li>
-                {% endif %}
+            {% for song in learning_songs %}
+                <li id="song_{{user.pk}}_{{song.pk}}" class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ song.text }}
+                    <a class="badge badge-danger badge-pill" href="{% url 'song_delete' user.pk song.pk %}" 
+                    id="learning_delete"> 
+                        x
+                    </a>
+                </li>
             {% endfor %}
         </ul>
         <br>
-        <form method="POST" action="{% url 'song_post' user.pk 2 %}">
+        <form method="POST" action="{% url 'song_post' user.pk 'learning' %}">
             <div class="input-group mb-3">
-                <input name="learning_input" id="learning_input" type="text" class="form-control" placeholder="A song you're learning" aria-label="Song" aria-describedby="basic-addon2">
+                <input name="learning_input" id="learning_input" type="text" class="form-control" placeholder="A song you're learning" aria-label="Song" aria-describedby="basic-addon2" required>
                 <div class="input-group-append">
                     <button id="learning_submit" class="btn btn-outline-success" type="submit">+</button>
                 </div>
@@ -69,22 +65,20 @@
     <div class="col-md-3" id="learned">
         <h3 class="list_title" id="learned_title">Learned</h3>
         <ul class="list-group" id="learned_list">
-            {% for song in songs %}
-                {% if song.status == 'learned' %}
-                    <li id="song_item" class="list-group-item d-flex justify-content-between align-items-center">
-                            {{ song.text }}
-                        <a class="badge badge-danger badge-pill" href="{% url 'song_delete' user.pk song.pk %}" 
-                        id="learned_delete"> 
-                            x
-                        </a>
-                    </li>
-                {% endif %}
+            {% for song in learned_songs %}
+                <li id="song_{{user.pk}}_{{song.pk}}" class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ song.text }}
+                    <a class="badge badge-danger badge-pill" href="{% url 'song_delete' user.pk song.pk %}" 
+                    id="learned_delete"> 
+                        x
+                    </a>
+                </li>
             {% endfor %}
         </ul>
         <br>
-        <form method="POST" action="{% url 'song_post' user.pk 3 %}">
+        <form method="POST" action="{% url 'song_post' user.pk 'learned' %}">
             <div class="input-group mb-3">
-                <input name="learned_input" id="learned_input" type="text" class="form-control" placeholder="A song you've learned" aria-label="Song" aria-describedby="basic-addon2">
+                <input name="learned_input" id="learned_input" type="text" class="form-control" placeholder="A song you've learned" aria-label="Song" aria-describedby="basic-addon2" required>
                 <div class="input-group-append">
                     <button id="learned_submit" class="btn btn-outline-success" type="submit">+</button>
                 </div>
@@ -96,22 +90,20 @@
     <div class="col-md-3" id="rusty">
         <h3 class="list_title" id="rusty_title">Rusty</h3>
         <ul class="list-group" id="rusty_list">
-            {% for song in songs %}
-                {% if song.status == 'rusty' %}
-                    <li id="song_item" class="list-group-item d-flex justify-content-between align-items-center">
-                            {{ song.text }}
-                        <a class="badge badge-danger badge-pill" href="{% url 'song_delete' user.pk song.pk %}" 
-                        id="rusty_delete"> 
-                            x
-                        </a>
-                    </li>
-                {% endif %}
+            {% for song in rusty_songs %}
+                <li id="song_{{user.pk}}_{{song.pk}}" class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ song.text }}
+                    <a class="badge badge-danger badge-pill" href="{% url 'song_delete' user.pk song.pk %}" 
+                    id="rusty_delete"> 
+                        x
+                    </a>
+                </li>
             {% endfor %}
         </ul>
         <br>
-        <form method="POST" action="{% url 'song_post' user.pk 4 %}">
+        <form method="POST" action="{% url 'song_post' user.pk 'rusty' %}">
             <div class="input-group mb-3">
-                <input name="rusty_input" id="rusty_input" type="text" class="form-control" placeholder="A song you need to re-visit" aria-label="Song" aria-describedby="basic-addon2">
+                <input name="rusty_input" id="rusty_input" type="text" class="form-control" placeholder="A song you need to re-visit" aria-label="Song" aria-describedby="basic-addon2" required>
                 <div class="input-group-append">
                     <button id="rusty_submit" class="btn btn-outline-success" type="submit">+</button>
                 </div>
@@ -123,40 +115,66 @@
 {% endblock content %}
 
 {% block js %}
+{% comment %} Sortable js {% endcomment %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js" integrity="sha512-zYXldzJsDrNKV+odAwFYiDXV2Cy37cwizT+NkuiPGsa9X1dOz04eHvUWVuxaJ299GvcJT31ug2zO4itXBjFx4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-    Sortable.create(to_learn, { 
-        animation: 150, 
-        group: 'song_book', 
-        draggable: '.list-group-item', 
-        handle: '.list-group-item',
-        sort: true,  
-        chosenClass: 'active' 
-    });
-    Sortable.create(learning, { 
-        animation: 150, 
-        group: 'song_book', 
-        draggable: '.list-group-item', 
-        handle: '.list-group-item',
-        sort: true,  
-        chosenClass: 'active' 
-    });
-    Sortable.create(learned, { 
-        animation: 150, 
-        group: 'song_book', 
-        draggable: '.list-group-item', 
-        handle: '.list-group-item',
-        sort: true,  
-        chosenClass: 'active' 
-    });
-    Sortable.create(rusty, { 
-        animation: 150, 
-        group: 'song_book', 
-        draggable: '.list-group-item', 
-        handle: '.list-group-item',
-        sort: true,  
-        chosenClass: 'active' 
-    });
+
+    createSortable(to_learn_list);
+    createSortable(learning_list);
+    createSortable(learned_list);
+    createSortable(rusty_list);
+
+    function createSortable(list_name){
+        var sortable = Sortable.create(list_name, { 
+            animation: 150, 
+            group: 'song_book', 
+            draggable: '.list-group-item', 
+            handle: '.list-group-item',
+            sort: true,  
+            chosenClass: 'active',
+
+            onEnd: function (evt) {
+                // change indexes of everything in target list (evt.to)
+                // by putting everything in evt.to, inside an array, getting their index and setting this as the new list indexes
+                [].forEach.call(evt.to.getElementsByClassName('list-group-item'), function (el,index) {
+                        list_index = index;
+                        console.log(list_index); 
+
+                        // get user and song pk from format 'song_userpk_songpk' in list element id
+                        pk_array = el.id.split('_')
+                        
+                        user_pk = pk_array[1];
+                        console.log(user_pk);
+
+                        song_pk = pk_array[2];
+                        console.log(song_pk);
+
+                        // status gotten from id of the list
+                        status = el.parentNode.id.replace('_list', '');
+                        console.log(status); 
+
+                        // sends the updated index and/or status to the python view to update the database
+                        sendToView(user_pk, song_pk, list_index, status);
+                });
+            },
+
+        });
+
+        return sortable
+    }
+
+    function sendToView(user_pk, song_pk, list_index, status){
+        $.ajax({
+            url: "{% url 'song_move' %}",
+            type: "POST",
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                user_pk: user_pk,
+                song_pk: song_pk,
+                list_index: list_index,
+                status: status,
+            },
+        });
+    }
 </script>
-{% comment %} Sortable js {% endcomment %}
 {% endblock js %}

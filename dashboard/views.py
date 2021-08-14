@@ -18,7 +18,7 @@ def dashboard(request, pk):
         else:
             Goal.objects.create(text=request.POST['goal_input'] , due_date=request.POST['date_input'], user = the_user)
     
-    goals = Goal.objects.filter(completed=False)
+    goals = Goal.objects.filter(completed=False, user=the_user)
 
     cal = colour_calendar(pk=pk)
 
@@ -58,21 +58,21 @@ def colour_calendar(pk):
     return cal
 
 @login_required
-def goal_tick(request, pk):
-    goal = get_object_or_404(Goal, pk=pk)
+def goal_tick(request, user_pk, goal_pk):
+    the_user = MyUser.objects.get(pk=user_pk)
+    goal = get_object_or_404(Goal, user = the_user, pk = goal_pk)
     goal.completed = True
     goal.save()
-    user_pk = goal.user.pk
     return redirect(f'/dashboard/{user_pk}/')
 
 @login_required
-def goal_edit(request, pk):
-    goal = get_object_or_404(Goal, pk=pk)
-    user_pk = goal.user.pk
+def goal_edit(request, user_pk, goal_pk):
+    the_user = MyUser.objects.get(pk=user_pk)
+    goal = get_object_or_404(Goal, user = the_user, pk = goal_pk)
     if (goal.editing == False):
         goal.editing = True
         goal.save()
-        goals = Goal.objects.filter(completed=False)
+        goals = Goal.objects.filter(completed=False, user = the_user)
         cal = colour_calendar(user_pk)
         return render(request, 'dashboard/base_dashboard_edit.html',{'goals':goals, 'cal':cal})
     else:

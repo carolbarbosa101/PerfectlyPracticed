@@ -13,10 +13,10 @@
                     <td id="goal_cell">{{ goal.text }}</td>
                     <td id="date_cell">{{ goal.due_date }}</td>
                     <td id="checkbox">
-                        <input type="checkbox" onclick="location.href='{% url 'goal_tick' goal.pk %}'">
+                        <input type="checkbox" onclick="location.href='{% url 'goal_tick' user.pk goal.pk %}'">
                     </td>
                     <td class="edit_button">
-                        <a href="{% url 'goal_edit' goal.pk %}">
+                        <a href="{% url 'goal_edit' user.pk goal.pk %}">
                             {% include './icons/pencil-fill.svg' %}
                         </a>
                     </td>

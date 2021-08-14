@@ -10,7 +10,9 @@
 
 #add_button{
     font-size: medium;
-    width: 30px;
+    width: 40px;
+    height: 44px;
+    bottom: 12px;
     /* margin-right: 5px; */
 }
 

@@ -1,4 +1,7 @@
 from .base import FunctionalTest
+from selenium.webdriver.common.action_chains import ActionChains 
+import time
+from selenium import webdriver
 
 
 class SongBookTest(FunctionalTest):
@@ -21,7 +24,7 @@ class SongBookTest(FunctionalTest):
         self.find_and_click('#learning_submit')
 
         # The element appears in this section now after adding 
-        song = self.browser.find_element_by_css_selector('#song_item')
+        song = self.browser.find_element_by_css_selector('#song_5_1') # user_pk = 5 due to 5th login with all tests
         self.assertIn('Starman', song.text)
 
         # He adds in a few more songs into different sections
@@ -44,6 +47,8 @@ class SongBookTest(FunctionalTest):
         list_group = self.browser.find_element_by_css_selector('#rusty_list')
         list_group_children = list_group.find_elements_by_tag_name('li')
         self.assertEqual(len(list_group_children), 1)
+
+        # Rearranging items is also possible (see song_book/tests.py, not possible in selenium for sortable js)
         
         # When he clicks on Starman song element he is brought to its page
         
@@ -52,3 +57,4 @@ class SongBookTest(FunctionalTest):
         # Add a youtube link to tutorials
 
         # Record his practice attempts of the song  
+
