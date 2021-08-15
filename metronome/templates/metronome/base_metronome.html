@@ -12,18 +12,22 @@
 
 {% block content%}
 <div class="row justify-content-center">
-    <div class="col-md-5.5" id="circle">
+    <div class="col-md-5.5">
         <svg width="500" height="500" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="45" stroke="#001f3f" stroke-width="3" fill="#3badad"/>
+            <circle id="circle" cx="50" cy="50" r="45" stroke="#001f3f" stroke-width="3" fill="none"/>
+            <circle id="circle_2" cx="50" cy="50" r="43.5" fill="#ff392e"/>
           </svg>
     </div>
+    <audio id="beat_sound" hidden>
+        <source src="{% static '/metronome/pop.mp3' %}" type="audio/mp3">
+    </audio>
 </div>
 <div class="row justify-content-center">
     <div class="col-md-2">
         <div class="input-group mb-3">
-            <input type="number" class="form-control" aria-label="bpm" id="bpm_input">
+            <input type="number" class="form-control" aria-label="bpm" id="bpm_input" value="60">
             <div class="input-group-append">
-            <span class="input-group-text">bpm</span>
+            <span class="input-group-text bg-dark text-white">bpm</span>
             </div>
         </div>
     </div>
@@ -45,20 +49,29 @@
             $('#play_button').click(startMetro)
         });
 
-    function startMetro(){
-        $('#play_button').replaceWith(
-            "<a href='#' id='pause_button'>  <img src=\"{% static '/metronome/music-player-pause-button-svgrepo-com.svg' %}\" /> </a>"
-        );
-        $('#pause_button').click(pauseMetro)
+        function startMetro(){
+            $('#play_button').replaceWith(
+                "<a href='#' id='pause_button'>  <img src=\"{% static '/metronome/music-player-pause-button-svgrepo-com.svg' %}\" /> </a>"
+            );
+            theInterval = startSound();
+            $('#pause_button').click({interval:theInterval},pauseMetro)
 
-    }
-    
-    function pauseMetro(){
-        $('#pause_button').replaceWith(
-            "<a href='#' id='play_button'>  <img src=\"{% static '/metronome/play-button-movie-svgrepo-com.svg' %}\" /> </a>"
-        );
-        $('#play_button').click(startMetro)
-    }
+            // change bpm whilst metrenome still playing
+            $('#bpm_input').change('input', function(){
+                clearInterval(theInterval);
+                theInterval = startSound();
+                $('#pause_button').click({interval:theInterval},pauseMetro)
+            })
+
+        }
+        
+        function pauseMetro(intervalParam){
+            $('#pause_button').replaceWith(
+                "<a href='#' id='play_button'>  <img src=\"{% static '/metronome/play-button-movie-svgrepo-com.svg' %}\" /> </a>"
+            );
+            clearInterval(intervalParam.data.interval);
+            $('#play_button').click(startMetro)
+        }
 
     </script>
 {% endblock js %}
