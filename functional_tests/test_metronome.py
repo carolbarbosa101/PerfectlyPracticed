@@ -13,3 +13,6 @@ class MetronomeTest(FunctionalTest):
 
             # This takes him to the timer page
             self.assertIn('Metronome', self.browser.title)
+
+            # He sees a simple layout with a circle, the current bpm and an input to adjust the bpm
+            

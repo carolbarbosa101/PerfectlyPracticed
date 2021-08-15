@@ -96,6 +96,7 @@
 {% endblock content %}
 
 {% block js %}
+    {{ block.super }}
     <script src="{% static '/timer/timer.js' %}"></script>
     {% comment %} <script>
         $(document).ready(function () {

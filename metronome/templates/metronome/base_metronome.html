@@ -11,7 +11,54 @@
 {% endblock sheet %}
 
 {% block content%}
+<div class="row justify-content-center">
+    <div class="col-md-5.5" id="circle">
+        <svg width="500" height="500" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="45" stroke="#001f3f" stroke-width="3" fill="#3badad"/>
+          </svg>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-md-2">
+        <div class="input-group mb-3">
+            <input type="number" class="form-control" aria-label="bpm" id="bpm_input">
+            <div class="input-group-append">
+            <span class="input-group-text">bpm</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-md-1">
+        <a href="#" id="play_button">
+            <img src="{% static '/metronome/play-button-movie-svgrepo-com.svg' %}" />
+        </a>
+    </div>
+</div>
 {% endblock content %}
 
 {% block js %}
+    {{ block.super }}
+    <script src="{% static '/metronome/metronome.js' %}"></script> 
+    <script>
+        $(function() {
+            $('#play_button').click(startMetro)
+        });
+
+    function startMetro(){
+        $('#play_button').replaceWith(
+            "<a href='#' id='pause_button'>  <img src=\"{% static '/metronome/music-player-pause-button-svgrepo-com.svg' %}\" /> </a>"
+        );
+        $('#pause_button').click(pauseMetro)
+
+    }
+    
+    function pauseMetro(){
+        $('#pause_button').replaceWith(
+            "<a href='#' id='play_button'>  <img src=\"{% static '/metronome/play-button-movie-svgrepo-com.svg' %}\" /> </a>"
+        );
+        $('#play_button').click(startMetro)
+    }
+
+    </script>
 {% endblock js %}
