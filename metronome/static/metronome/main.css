@@ -1,3 +1,14 @@
-#bpm_input, .input-group-text{
-    font-size: 25px;
+#bpm_input{
+    width: 200px;
+    right: 20px;
+    position: relative;
+    transform: scale(2); /* Or however big you want it */
+    transform-origin: 0 0;
+}
+
+#slider_label{
+    font-size: 50px;
+}
+#bpm_text{
+    font-size: 50px;
 }

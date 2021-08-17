@@ -1,19 +1,76 @@
-function startSound(){
-    var bpm = $('#bpm_input').val();
-    // bpm = beats per minute
-    // 1 minute = 60s = 60,000 ms
-    // by dividing 60,000 by the bpm, we know how often (in ms) we want a beat to happen,
-    // to reach that many beats in a minute
-    // i.e a beat every x ms , where x = 60,000 / bpm
-    // therefore x = interval (between each beat)
+let audioContext = new AudioContext;
+let scheduleAheadTime = 0.1;
+let lookahead = 0.25;
+let nextNoteTime = 0;
+var bpm = $('#bpm_input').val();
 
-    var interval = 1000*60/bpm;
+
+function playOsc(time){
+  // input node oscillator
+  let osc = audioContext.createOscillator();
+  osc.frequency.value = 800;
+
+  // add a gain node
+  let theGain = audioContext.createGain();
+  theGain.gain.exponentialRampToValueAtTime(1, time + 0.001);
+  theGain.gain.exponentialRampToValueAtTime(0.001, time + 0.02);
+
+  // start playing note at calculated nextNoteTime
+  osc.start(time);
+  osc.stop(time + 0.01);
+  
+  playAnimation(time);
+  
+  // need to connect audio graph by connecting input nodes with output
+  osc.connect(theGain).connect(audioContext.destination);
+
+}
+
+function playAnimation(time){
+
+  // mitigate animation lag by adjusting fade time at higher bpm
+  var fadeTime;
+  if(bpm < 120){
+    fadeTime = 200
+  }else{
+    fadeTime = 100
+  }
+  
+  timeLeft = (time - audioContext.currentTime) * 1000
+  setTimeout(() => {
+    $('#circle_2').fadeTo(fadeTime, 0.5, function() { $(this).fadeTo(fadeTime, 1.0); });
+    console.log('beat')
+    }, timeLeft);
+}
+
+function nextNote(){
+  // $('#beat_sound')[0].play();
+  bpm = $('#bpm_input').val();
+  var interval = 60/bpm;
+  nextNoteTime += interval;
+  
+}
+
+function scheduleNote(time){
+  // audioContext.resume();
+  playOsc(time);
+}
+
+
+function scheduler(){
+  while (nextNoteTime < audioContext.currentTime + scheduleAheadTime ) {
+    scheduleNote(nextNoteTime);
+    nextNote();
+  }
+}
+
+function startSound(){
+
+  nextNoteTime = audioContext.currentTime;
 
     metroInterval = setInterval(() => {
-        $('#beat_sound')[0].play();
-        $('#circle_2').fadeTo(200, 0.5, function() { $(this).fadeTo(200, 1.0); });
-        console.log('beat')
-      }, interval);
+      scheduler();
+      }, lookahead);
     
     return metroInterval;
 }
