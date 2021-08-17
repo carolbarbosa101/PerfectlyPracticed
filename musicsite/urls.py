@@ -25,4 +25,5 @@ urlpatterns = [
     path('', include('timer.urls')), 
     path('', include('song_book.urls')), 
     path('', include('metronome.urls')), 
+    path('', include('tuner.urls')), 
 ]

@@ -1,0 +1,18 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Tuner</title>
+{% endblock title %}
+
+{% block sheet %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'tuner/main.css' %}"/>
+{% endblock sheet %}
+
+{% block content%}
+{% endblock content %}
+
+{% block js %}
+    {{ block.super }}
+{% endblock js %}
