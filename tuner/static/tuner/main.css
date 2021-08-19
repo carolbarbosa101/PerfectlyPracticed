@@ -1,0 +1,14 @@
+#note_playing{
+    left: 110px;
+    margin-top: 200px;
+    font-size: 50px;
+}
+#higher_lower{
+    left: 40px;
+    margin-top: 200px;
+    font-size: 50px;
+}
+
+#start_tuner{
+    transform: scale(2);
+}

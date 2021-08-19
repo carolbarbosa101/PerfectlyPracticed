@@ -3,6 +3,8 @@
 
 {% block title %}
 <title>Tuner</title>
+    
+
 {% endblock title %}
 
 {% block sheet %}
@@ -11,8 +13,22 @@
 {% endblock sheet %}
 
 {% block content%}
+<div class="row justify-content-center">
+    <div class="col-md-2" id="note_playing">Note</div>
+    <div class="col-md-3" id="higher_lower">Distance</div>
+</div><br><br>
+<div class="row justify-content-center">
+    <div class="col-md-1">
+        <button id="start_tuner" class="btn btn-success">Start</button>
+    </div>
+</div>
 {% endblock content %}
 
 {% block js %}
     {{ block.super }}
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/addons/p5.sound.min.js"></script>
+    <script src="https://unpkg.com/ml5@0.3.1/dist/ml5.min.js"></script>
+
+    <script src="{% static '/tuner/tuner.js' %}"></script>
 {% endblock js %}

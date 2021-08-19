@@ -13,3 +13,9 @@ class TunerTest(FunctionalTest):
 
         # This takes him to the timer page
         self.assertIn('Tuner', self.browser.title)
+
+        # He sees a button to start the tuner and clicks it
+        self.find_and_click('#start_button')
+
+        # Ziggy starts plucking the strings on his guitar and he sees feedback saying
+        # what note is he is close to and whether the string is tuned or higher/lower
