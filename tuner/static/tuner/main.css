@@ -1,14 +1,43 @@
-#note_playing{
-    left: 110px;
-    margin-top: 200px;
-    font-size: 50px;
-}
-#higher_lower{
-    left: 40px;
-    margin-top: 200px;
-    font-size: 50px;
+.cS-hidden {
+    height: 1px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    overflow: hidden;
 }
 
-#start_tuner{
-    transform: scale(2);
+#freq_pointer{
+    transform: scale(0.6) rotate(180deg) translateX(-30px) translateY(70px);
+}
+
+#slider_div{
+    transform: scale(1.1) translateY(-40px);
+}
+
+#light_slider{
+    border-style: solid;
+    border-width: 5px;
+    color: darkgreen;
+}
+.slide{
+    font-size: 50px;
+    height:150px;
+    text-align: center;
+    background-color: #001f3f;
+    color: white;
+}
+.note_text{
+    position: relative;
+    top: 30px;
+}
+
+#freq{
+    font-size: 40px;
+    transform: translateX(15px) translateY(-30px);
+    color: #3badad;
+    text-align: center;
+}
+
+
+#start_button, #stop_button{
+    transform: scale(2) translateX(10px) translateY(-10px);
 }

@@ -9,17 +9,35 @@
 
 {% block sheet %}
     {{ block.super }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/css/lightslider.min.css" integrity="sha512-yJHCxhu8pTR7P2UgXFrHvLMniOAL5ET1f5Cj+/dzl+JIlGTh5Cz+IeklcXzMavKvXP8vXqKMQyZjscjf3ZDfGA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="{% static 'tuner/main.css' %}"/>
 {% endblock sheet %}
 
 {% block content%}
+<div class="row justify-content-center" id="freq_pointer">
+    <svg width="100" height="100" viewBox="0 0 110 110">
+        <polygon points="70 15, 100 100, 40 100" id="pointer_triangle" style="fill:red; stroke:#001f3f; stroke-width:3" />
+    </svg>
+</div>
+<div class="row justify-content-center" id="slider_div">
+    <div class="col-md-12">
+        <ul id="light_slider" class="cS-hidden">
+            {% for note in notes_list %}
+                <li class="slide">
+                    <p class="note_text">
+                        {{note}}
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 <div class="row justify-content-center">
-    <div class="col-md-2" id="note_playing">Note</div>
-    <div class="col-md-3" id="higher_lower">Distance</div>
-</div><br><br>
+    <div class="col-md-3" id="freq">Frequency</div>
+</div><br>
 <div class="row justify-content-center">
     <div class="col-md-1">
-        <button id="start_tuner" class="btn btn-success">Start</button>
+        <button id="start_button" class="btn btn-success">Start</button>
     </div>
 </div>
 {% endblock content %}
@@ -29,6 +47,24 @@
     <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/addons/p5.sound.min.js"></script>
     <script src="https://unpkg.com/ml5@0.3.1/dist/ml5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/js/lightslider.min.js" integrity="sha512-Gfrxsz93rxFuB7KSYlln3wFqBaXUc1jtt3dGCp+2jTb563qYvnUBM/GP2ZUtRC27STN/zUamFtVFAIsRFoT6/w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <script>
+        const notes = {};
+        const noteSlides = {};
+        $(function() {
+            $('#start_button').click(startTuner)
+            // place json data into appropriate dictionaries to be acessed in tuner.js
+            var i = 0;
+            $.getJSON( "{% static 'tuner/notes.json' %}", (data) => {         
+                $.each(data, (note, noteFreq) => {
+                    notes[noteFreq] = note
+                    noteSlides[note] = i;
+                    ++i;
+                });
+            });
+        });
+    </script>
     <script src="{% static '/tuner/tuner.js' %}"></script>
+
 {% endblock js %}
