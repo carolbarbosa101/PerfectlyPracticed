@@ -16,7 +16,7 @@
 #light_slider{
     border-style: solid;
     border-width: 5px;
-    color: darkgreen;
+    color: #3badad;
 }
 .slide{
     font-size: 50px;
@@ -41,3 +41,21 @@
 #start_button, #stop_button{
     transform: scale(2) translateX(10px) translateY(-10px);
 }
+
+.break_lines{
+    transform: translateY(40px);
+}
+
+#instrument_refs{
+    transform: scale(1.1) translateX(50px) translateY(40px);
+}
+
+#tab_titles{
+    border-radius: 1%;
+    background-color: lightgoldenrodyellow;
+}
+#tab_texts{
+    border-radius: 1%;
+    background-color:lightblue;
+}
+

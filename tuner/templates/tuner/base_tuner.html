@@ -40,6 +40,58 @@
         <button id="start_button" class="btn btn-success">Start</button>
     </div>
 </div>
+<div class="row justify-content-center" id="instrument_refs">
+    <div class="col-3" id="tab_titles"><br>
+    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+      <a class="nav-link active" id="v-pills-guitar-tab" data-toggle="pill" href="#v-pills-guitar" role="tab" aria-controls="v-pills-guitar" aria-selected="true">Guitar</a>
+      <a class="nav-link" id="v-pills-piano-tab" data-toggle="pill" href="#v-pills-piano" role="tab" aria-controls="v-pills-piano" aria-selected="false">Piano</a>
+      <a class="nav-link" id="v-pills-violin-tab" data-toggle="pill" href="#v-pills-violin" role="tab" aria-controls="v-pills-violin" aria-selected="false">Violin</a>
+      <a class="nav-link" id="v-pills-banjo-tab" data-toggle="pill" href="#v-pills-banjo" role="tab" aria-controls="v-pills-banjo" aria-selected="false">Banjo</a>
+      <a class="nav-link" id="v-pills-bass-tab" data-toggle="pill" href="#v-pills-bass" role="tab" aria-controls="v-pills-bass" aria-selected="false">Bass</a>
+      <a class="nav-link" id="v-pills-ukulele-tab" data-toggle="pill" href="#v-pills-ukulele" role="tab" aria-controls="v-pills-ukulele" aria-selected="false">Ukulele</a>
+    </div>
+  </div>
+  <div class="col-5" id="tab_texts"><br>
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-guitar" role="tabpanel" aria-labelledby="v-pills-guitar-tab">
+                -- 6th String - E2 - 82.41Hz --<br><br>
+                -- 5th String - A3 - 110.00Hz --<br><br>
+                -- 4th String - D3 - 146.80Hz --<br><br>
+                -- 3rd String - G3 - 196.00Hz --<br><br>
+                -- 2nd String - B3 - 246.94Hz --<br><br>
+                -- 1st String - E4 - 329.63Hz --
+            </div>
+            <div class="tab-pane fade" id="v-pills-piano" role="tabpanel" aria-labelledby="v-pills-piano-tab">
+                88 keys from A0=27.50Hz to C8=4186.01Hz
+            </div>
+            <div class="tab-pane fade" id="v-pills-violin" role="tabpanel" aria-labelledby="v-pills-violin-tab">
+                -- 4th String - G3 - 196.00Hz --<br><br>
+                -- 3rd String - D4 - 293.66Hz --<br><br>
+                -- 2nd String - A4 - 440.00Hz --<br><br>
+                -- 1st String - E5 - 659.26Hz --<br>
+            </div>
+            <div class="tab-pane fade" id="v-pills-banjo" role="tabpanel" aria-labelledby="v-pills-banjo-tab">
+                -- 5th String - G4 - 392.00Hz --<br><br>
+                -- 4th String - D3 - 146.83Hz --<br><br>
+                -- 3rd String - G3 - 196.00Hz --<br><br>
+                -- 2nd String - B3 - 246.94Hz --<br><br>
+                -- 1st String - D4 - 293.66Hz --
+            </div>
+            <div class="tab-pane fade" id="v-pills-bass" role="tabpanel" aria-labelledby="v-pills-bass-tab">
+                -- 4th String - E1 - 41.20Hz --<br><br>
+                -- 3rd String - A1 - 55.00Hz --<br><br>
+                -- 2nd String - D2 - 73.42Hz --<br><br>
+                -- 1st String - G2 - 98.00Hz --<br>
+            </div>
+            <div class="tab-pane fade" id="v-pills-ukulele" role="tabpanel" aria-labelledby="v-pills-ukulele-tab">
+                -- 4th String - G4 - 392.00Hz --<br><br>
+                -- 3rd String - C4 - 261.63Hz --<br><br>
+                -- 2nd String - E4 - 329.63Hz --<br><br>
+                -- 1st String - A4 - 440.00Hz --<br>
+            </div>
+        </div>
+    <br></div>
+</div>
 {% endblock content %}
 
 {% block js %}

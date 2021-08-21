@@ -48,7 +48,7 @@ function gotPitch(err, frequency) {
 }
 
 // change DOM to display the likely guitar note
-// update every 0.25s
+// update every 10 ms
 function showNote(){
     interval = setInterval(() => {
       higherOrLower();
