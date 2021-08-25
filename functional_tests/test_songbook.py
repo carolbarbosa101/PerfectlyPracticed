@@ -24,7 +24,7 @@ class SongBookTest(FunctionalTest):
         self.find_and_click('#learning_submit')
 
         # The element appears in this section now after adding 
-        song = self.browser.find_element_by_css_selector('#song_6_1') # user_pk = 6 due to 6th login with all tests
+        song = self.browser.find_element_by_css_selector('#song_1_1') # user_pk = 6 due to 6th login with all tests
         self.assertIn('Starman', song.text)
 
         # He adds in a few more songs into different sections
@@ -43,18 +43,37 @@ class SongBookTest(FunctionalTest):
         list_group = self.browser.find_element_by_css_selector('#rusty_list')
         list_group_children = list_group.find_elements_by_tag_name('li')
         self.assertEqual(len(list_group_children), 2)
-        self.find_and_click('#rusty_delete')
+        self.find_and_click('#song_1_6 > a')
         list_group = self.browser.find_element_by_css_selector('#rusty_list')
         list_group_children = list_group.find_elements_by_tag_name('li')
         self.assertEqual(len(list_group_children), 1)
 
         # Rearranging items is also possible (see song_book/tests.py, not possible in selenium for sortable js)
         
-        # When he clicks on Starman song element he is brought to its page
+        # When he clicks on Starman song element he is brought to its pop up box
+        self.find_and_click('#song_1_2')
+        time.sleep(2)
+        self.browser.switch_to_active_element()
+
+        # Here he sees he can embed a youtube tutorial link by pasting in the URL
+        self.find_and_fill_1('link_input', 'https://www.youtube.com/watch?v=aWOppc3Udto&ab_channel=LeftHandedGuitarist')
+        self.find_and_click('.btn.btn-outline-success')
+
+        # When he opens the pop up box again he sees the video he selected is now embeded
+        self.find_and_click('#song_1_2')
+        time.sleep(2)
+        self.browser.switch_to_active_element()
+        iframe = self.browser.find_element_by_css_selector('.vid_frame')
+        link = iframe.get_attribute('src')
+        self.assertEqual(link, 'https://www.youtube.com/embed/aWOppc3Udto')
         
-        # Here he can add text and images
 
-        # Add a youtube link to tutorials
+        # And beneath this he can write and save notes about the video
+        self.find_and_click('.note_p')
+        self.find_and_fill_1('note_input', 'Verse chords are D, Am, C and G')
+        self.find_and_click('.btn.btn-success.float-right')
+        note = self.browser.find_element_by_css_selector('.note_p')
+        self.assertEqual(note.text, 'Verse chords are D, Am, C and G')
 
-        # Record his practice attempts of the song  
+        # He now swtiches to the recordings tab
 

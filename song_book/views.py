@@ -55,3 +55,26 @@ def song_move(request):
     song.status = status
     song.save()
     return redirect(f'/song_book/{user_pk}/')
+
+def song_note(request):
+    user_pk = request.POST.get('user_pk')
+    song_pk = request.POST.get('song_pk')
+
+    the_user = get_object_or_404(MyUser, pk = user_pk)
+    song = Song.objects.get(pk = song_pk, user=the_user)
+    song.note = request.POST.get('note_input')
+    song.save()
+    return redirect(f'/song_book/{user_pk}/')
+
+def song_video(request, user_pk, song_pk):
+    the_user = get_object_or_404(MyUser, pk = user_pk)
+    song = Song.objects.get(pk = song_pk, user=the_user)
+
+    # turn regular yt link to embed link
+    raw_link = request.POST['link_input']
+    id = raw_link[32:43]
+    embed_link = f'https://www.youtube.com/embed/{id}'
+    song.video = embed_link
+    song.save()
+    return redirect(f'/song_book/{user_pk}/')
+

@@ -19,3 +19,26 @@
     cursor: -webkit-grabbing;
 }
 
+.vid_frame{
+    width: 100%;
+    height: 650px;
+}
+
+.note_input{
+    height: 200px;
+    width: 100%;
+    display: none;
+    border-radius: 15px;
+}
+
+.note_p{
+    min-height: 200px;
+    min-width: 100%;
+    background-color: lightgray;
+    border-radius: 15px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: max-content;
+    max-width: 100%;
+}
+
