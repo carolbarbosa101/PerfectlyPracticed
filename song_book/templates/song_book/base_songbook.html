@@ -12,169 +12,73 @@
 
 {% block content%}
 <div class="row" id="board">
+
     <div class="col-md-3" id="to_learn">
         <h3 class="list_title" id="to_learn_title">To Learn</h3>
         <ul class="list-group" id="to_learn_list">
             {% for song in to_learn_songs %}
-                <li id="song_{{user.pk}}_{{song.pk}}" user_pk = {{user.pk}} song_pk= {{song.pk}} class="list-group-item d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#modal_{{song.pk}}" data-backdrop="static" data-keyboard="false">
+                <li id="song_{{user.pk}}_{{song.pk}}" user_pk = {{user.pk}} song_pk= {{song.pk}} class="list-group-item d-flex justify-content-between align-items-center" 
+                data-toggle="modal" data-target="#modal_{{song.pk}}" data-backdrop="static" data-keyboard="false">
                         {{ song.text }}
                     <a class="badge badge-danger badge-pill" href="{% url 'song_delete' user.pk song.pk %}"> 
                         x
                     </a>
                 </li>
-                <div class="modal" id="modal_{{song.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog mw-100 w-75" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header text-center">
-                                <h1 class="modal-title w-100">{{song.text}}</h1>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
-                                    <li class="nav-item">
-                                      <a class="nav-link active" id="videos-tab" data-toggle="tab" href="#videos" role="tab" aria-controls="videos" aria-selected="true">Videos</a>
-                                    </li>
-                                    <li class="nav-item">
-                                      <a class="nav-link" id="recordings-tab" data-toggle="tab" href="#recordings" role="tab" aria-controls="recordings" aria-selected="false">Recordings</a>
-                                    </li>
-                                    <li class="nav-item">
-                                      <a class="nav-link" id="images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="images" aria-selected="false">Images</a>
-                                    </li>
-                                </ul><br>
-
-                                <div class="tab-content">
-                                    <div class="tab-pane fade show active" id="videos" role="tabpanel" aria-labelledby="videos-tab">
-                                        <div class="container-fluid">
-                                            <div class="row justify-content-center">
-                                                <div class="col-md-12 vid-link">
-                                                    <form method="POST" action="{% url 'song_video' user.pk song.pk %}">
-                                                        <div class="input-group mb-3">
-                                                            <input name="link_input" type="text" class="form-control" placeholder="Add a youtube video link to embed (added after refresh)" aria-label="link_input" aria-describedby="basic-addon2" required>
-                                                            <div class="input-group-append">
-                                                                <button type="submit" class="btn btn-outline-success">+</button>
-                                                            </div>
-                                                        </div>
-                                                    {% csrf_token %}
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <div class="row justify-content-center">
-                                                <div class="col-md-12 vid-container">
-                                                    <iframe class="vid_frame" src={{song.video}}>
-                                                    </iframe>
-                                                </div>
-                                            </div><br>
-                                            <div class="row justify-content-center">
-                                                <div class="col-md-10 notes">
-                                                    <form  method="POST" user_pk = {{user.pk}} song_pk= {{song.pk}}>
-                                                        <p class="note_p" onclick="editNote(this)">{{song.note}}</p>
-                                                        <textarea name="note_input" class="note_input"></textarea>
-                                                        <button type="button" onclick="saveNote(this)" class="btn btn-success float-right" style="display: none;">Save</button>
-                                                        {% csrf_token %}
-                                                    </form>
-                                                    <br>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="recordings" role="tabpanel" aria-labelledby="recordings-tab">...</div>
-                                    <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">...</div>
-                                </div>
-                                
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% include 'song_book/modal.html' %}
             {% endfor %}
         </ul>
-        <br>
-        <form method="POST" action="{% url 'song_post' user.pk 'to_learn' %}">
-            <div class="input-group mb-3">
-                <input name="to_learn_input" id="to_learn_input" type="text" class="form-control" placeholder="A song you want to learn" aria-label="Song" aria-describedby="basic-addon2" required>
-                <div class="input-group-append">
-                    <button id="to_learn_submit" class="btn btn-outline-success" type="submit">+</button>
-                </div>
-            </div>
-        {% csrf_token %}
-        </form>
+    {% include 'song_book/song_form.html' with status='to_learn' placeholder='A song you want to learn' user=user %}
     </div>
 
     <div class="col-md-3" id="learning">
         <h3 class="list_title" id="learning_title">Learning</h3>
         <ul class="list-group" id="learning_list">
             {% for song in learning_songs %}
-                <li id="song_{{user.pk}}_{{song.pk}}" user_pk = {{user.pk}} song_pk= {{song.pk}} class="list-group-item d-flex justify-content-between align-items-center">
+                <li id="song_{{user.pk}}_{{song.pk}}" user_pk = {{user.pk}} song_pk= {{song.pk}} class="list-group-item d-flex justify-content-between align-items-center"
+                data-toggle="modal" data-target="#modal_{{song.pk}}" data-backdrop="static" data-keyboard="false">
                         {{ song.text }}
                     <a class="badge badge-danger badge-pill" href="{% url 'song_delete' user.pk song.pk %}"> 
                         x
                     </a>
                 </li>
+                {% include 'song_book/modal.html' %}
             {% endfor %}
         </ul>
-        <br>
-        <form method="POST" action="{% url 'song_post' user.pk 'learning' %}">
-            <div class="input-group mb-3">
-                <input name="learning_input" id="learning_input" type="text" class="form-control" placeholder="A song you're learning" aria-label="Song" aria-describedby="basic-addon2" required>
-                <div class="input-group-append">
-                    <button id="learning_submit" class="btn btn-outline-success" type="submit">+</button>
-                </div>
-            </div>
-        {% csrf_token %}
-        </form>
+    {% include 'song_book/song_form.html' with status='learning' placeholder='A song you are learning' user=user%}
     </div>
 
     <div class="col-md-3" id="learned">
         <h3 class="list_title" id="learned_title">Learned</h3>
         <ul class="list-group" id="learned_list">
             {% for song in learned_songs %}
-                <li id="song_{{user.pk}}_{{song.pk}}" user_pk = {{user.pk}} song_pk= {{song.pk}} class="list-group-item d-flex justify-content-between align-items-center">
+                <li id="song_{{user.pk}}_{{song.pk}}" user_pk = {{user.pk}} song_pk= {{song.pk}} class="list-group-item d-flex justify-content-between align-items-center"
+                data-toggle="modal" data-target="#modal_{{song.pk}}" data-backdrop="static" data-keyboard="false">
                         {{ song.text }}
                     <a class="badge badge-danger badge-pill" href="{% url 'song_delete' user.pk song.pk %}"> 
                         x
                     </a>
                 </li>
+                {% include 'song_book/modal.html' %}
             {% endfor %}
         </ul>
-        <br>
-        <form method="POST" action="{% url 'song_post' user.pk 'learned' %}">
-            <div class="input-group mb-3">
-                <input name="learned_input" id="learned_input" type="text" class="form-control" placeholder="A song you've learned" aria-label="Song" aria-describedby="basic-addon2" required>
-                <div class="input-group-append">
-                    <button id="learned_submit" class="btn btn-outline-success align-items-right" type="submit">+</button>
-                </div>
-            </div>
-        {% csrf_token %}
-        </form>
+    {% include 'song_book/song_form.html' with status='learned' placeholder='A song you have learned' user=user %}
     </div>
     
     <div class="col-md-3" id="rusty">
         <h3 class="list_title" id="rusty_title">Rusty</h3>
         <ul class="list-group" id="rusty_list">
             {% for song in rusty_songs %}
-                <li id="song_{{user.pk}}_{{song.pk}}" user_pk = {{user.pk}} song_pk= {{song.pk}} class="list-group-item d-flex justify-content-between align-items-center">
+                <li id="song_{{user.pk}}_{{song.pk}}" user_pk = {{user.pk}} song_pk= {{song.pk}} class="list-group-item d-flex justify-content-between align-items-center"
+                data-toggle="modal" data-target="#modal_{{song.pk}}" data-backdrop="static" data-keyboard="false">
                         {{ song.text }}
                     <a class="badge badge-danger badge-pill" href="{% url 'song_delete' user.pk song.pk %}"> 
                         x
                     </a>
                 </li>
+                {% include 'song_book/modal.html' %}
             {% endfor %}
         </ul>
-        <br>
-        <form method="POST" action="{% url 'song_post' user.pk 'rusty' %}">
-            <div class="input-group mb-3">
-                <input name="rusty_input" id="rusty_input" type="text" class="form-control" placeholder="A song you need to re-visit" aria-label="Song" aria-describedby="basic-addon2" required>
-                <div class="input-group-append">
-                    <button id="rusty_submit" class="btn btn-outline-success" type="submit">+</button>
-                </div>
-            </div>
-        {% csrf_token %}
-        </form>
-    </div>
+    {% include 'song_book/song_form.html' with status='rusty' placeholder='A song you need to re-visit' user=user %}
 </div>
 {% endblock content %}
 
@@ -182,25 +86,10 @@
 {{ block.super }}
 {% comment %} Sortable js {% endcomment %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js" integrity="sha512-zYXldzJsDrNKV+odAwFYiDXV2Cy37cwizT+NkuiPGsa9X1dOz04eHvUWVuxaJ299GvcJT31ug2zO4itXBjFx4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>var csrftoken = '{{ csrf_token }}';</script>
+<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+<script src="{% static 'song_book/recording.js' %}"></script>
 <script>
-    // function addVideo(elem) {
-    //     var link_input = $(elem).parent().siblings('.form-control').val()
-    //     var user_pk = $(elem).parent().attr('user_pk')
-    //     var song_pk = $(elem).parent().attr('song_pk')
-
-    //     $.ajax({
-    //         url: "",
-    //         type: "POST",
-    //         data:{
-    //             csrfmiddlewaretoken: '{{ csrf_token }}',
-    //             user_pk: user_pk,
-    //             song_pk: song_pk,
-    //             link_input: link_input,
-    //         },
-    //         success: console.log('success!')
-    //     });
-    // }
-
     function editNote(elem) {
         $(elem).hide()
         $(elem).siblings('.btn').show()
@@ -232,7 +121,6 @@
     }
 </script>
 <script>
-
     createSortable(to_learn_list);
     createSortable(learning_list);
     createSortable(learned_list);

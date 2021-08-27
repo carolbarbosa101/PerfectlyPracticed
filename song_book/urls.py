@@ -9,4 +9,6 @@ urlpatterns = [
     path('song_book/song_move/', views.song_move, name='song_move'),
     path('song_book/song_note/', views.song_note, name='song_note'),
     path('song_book/<int:user_pk>/song_video/<int:song_pk>/', views.song_video, name='song_video'),
+    path('song_book/<int:user_pk>/song_recording/<int:song_pk>/', views.song_recording, name='song_recording'),
+    path('song_book/<int:user_pk>/song_recording_delete/<int:song_pk>/<int:recording_pk>/', views.song_recording_delete, name='song_recording_delete'),
 ]

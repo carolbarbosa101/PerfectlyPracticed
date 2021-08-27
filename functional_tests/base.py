@@ -5,11 +5,15 @@ from django.contrib.auth import BACKEND_SESSION_KEY, SESSION_KEY, HASH_SESSION_K
 from django.contrib.sessions.backends.db import SessionStore
 from django.contrib.sessions.models import Session
 from users.models import MyUser
+from selenium.webdriver.firefox.options import Options
+
 
 class FunctionalTest(StaticLiveServerTestCase):
 
     def setUp(self):  
-        self.browser = webdriver.Firefox()
+        options = Options()
+        options.set_preference("media.navigator.permission.disabled", True)
+        self.browser = webdriver.Firefox(options=options)
 
     def tearDown(self):  
         self.browser.quit()

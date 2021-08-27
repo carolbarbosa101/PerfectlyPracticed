@@ -1,0 +1,10 @@
+<br>
+<form method="POST" action="{% url 'song_post' user.pk status %}">
+    <div class="input-group mb-3">
+        <input name="{{status}}_input" id="{{status}}_input" type="text" class="form-control" placeholder="{{placeholder}}" aria-label="Song" aria-describedby="basic-addon2" required>
+        <div class="input-group-append">
+            <button id="{{status}}_submit" class="btn btn-outline-success" type="submit">+</button>
+        </div>
+    </div>
+{% csrf_token %}
+</form>

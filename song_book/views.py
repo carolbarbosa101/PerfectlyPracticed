@@ -1,6 +1,8 @@
+from os import name
 from django.shortcuts import get_object_or_404, redirect, render
 from users.models import MyUser
-from .models import Song
+from .models import Song, Recording
+from datetime import datetime
 
 def song_book(request, pk):
     the_user = MyUser.objects.get(pk=pk)
@@ -9,9 +11,10 @@ def song_book(request, pk):
     learning_songs = songs.filter(status='learning').order_by('list_index')
     learned_songs = songs.filter(status='learned').order_by('list_index')
     rusty_songs = songs.filter(status='rusty').order_by('list_index')
+    recordings = Recording.objects.all().order_by('-dt')
     
     return render(request, 'song_book/base_songbook.html',{'to_learn_songs': to_learn_songs, 'learning_songs':learning_songs,
-    'learned_songs': learned_songs, 'rusty_songs':rusty_songs ,'user':the_user})
+    'learned_songs': learned_songs, 'rusty_songs':rusty_songs, 'recordings':recordings, 'user':the_user})
 
 def index_init(song):
     song.list_index = (song.pk - 1)
@@ -76,5 +79,23 @@ def song_video(request, user_pk, song_pk):
     embed_link = f'https://www.youtube.com/embed/{id}'
     song.video = embed_link
     song.save()
+    return redirect(f'/song_book/{user_pk}/')
+
+def song_recording(request, user_pk, song_pk):
+    f = request.FILES.get('file')
+    display_name = request.POST.get('display_name')
+
+    the_user = get_object_or_404(MyUser, pk = user_pk)
+    the_song = Song.objects.get(pk = song_pk, user=the_user)
+    recording = Recording.objects.create(file=f, name=display_name, song=the_song)
+    recording.save()
+
+    return redirect(f'/song_book/{user_pk}/')
+
+def song_recording_delete(request, user_pk, song_pk, recording_pk):
+    the_user = get_object_or_404(MyUser, pk = user_pk)
+    the_song = Song.objects.get(pk = song_pk, user=the_user)
+    recording = Recording.objects.get(pk=recording_pk, song=the_song)
+    recording.delete()
     return redirect(f'/song_book/{user_pk}/')
 

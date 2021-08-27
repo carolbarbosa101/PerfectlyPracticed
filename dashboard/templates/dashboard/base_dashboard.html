@@ -1,4 +1,5 @@
 {% extends 'dashboard/base.html' %}
+{% load static %}
 {% block content%}
 <div class="row">
     <div class="col-md-6" id="goals_section">
@@ -17,7 +18,7 @@
                     </td>
                     <td class="edit_button">
                         <a href="{% url 'goal_edit' user.pk goal.pk %}">
-                            {% include './icons/pencil-fill.svg' %}
+                            <img src="{% static 'dashboard/pencil-fill.svg' %}" alt="edit">
                         </a>
                     </td>
             {% endblock goal_editing %}      

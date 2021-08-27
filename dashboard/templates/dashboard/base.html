@@ -26,7 +26,7 @@
             <div class="col-md-4 offset-1" id="header">
                 <div class="row">
                     <div class="col-md-2" id="logo">
-                        {% include './icons/music-svgrepo-com.svg' %}       
+                        <img src="{% static 'dashboard/music-svgrepo-com.svg' %}" alt="logo">     
                     </div>
                     <div class="col-md-10" id="header_text">
                         <h1><a href="{% url 'dashboard' user.pk %}">
@@ -48,14 +48,8 @@
                 <a href="{% url 'tuner' user.pk %}" class="tuner">
                     Tuner
                 </a>
-                <a href="" class="log">
-                    Log
-                </a>
             </div>
             <div class="col-md-2" id="header-menu">
-                <a href="" class="profile">
-                    Profile
-                </a>
                 <a href="" class="settings_link">
                     Settings
                 </a>

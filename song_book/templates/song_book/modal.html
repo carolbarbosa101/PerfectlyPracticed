@@ -1,0 +1,85 @@
+<div class="modal" id="modal_{{song.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog mw-100 w-75" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h1 class="modal-title w-100">{{song.text}}</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="videos-tab" data-toggle="tab" href="#videos_{{user.pk}}_{{song.pk}}" role="tab" aria-controls="videos" aria-selected="true">Videos</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="recordings-tab" data-toggle="tab" href="#recordings_{{user.pk}}_{{song.pk}}" role="tab" aria-controls="recordings" aria-selected="false">Recordings</a>
+                    </li>
+                </ul><br>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="videos_{{user.pk}}_{{song.pk}}" role="tabpanel" aria-labelledby="videos-tab">
+                        <div class="container-fluid">
+                            <div class="row justify-content-center">
+                                <div class="col-md-12 vid-link">
+                                    <form method="POST" action="{% url 'song_video' user.pk song.pk %}">
+                                        <div class="input-group mb-3">
+                                            <input name="link_input" type="text" class="form-control" placeholder="Paste a youtube video link to embed" aria-label="link_input" aria-describedby="basic-addon2" required>
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-outline-success add-vid">+</button>
+                                            </div>
+                                        </div>
+                                    {% csrf_token %}
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-md-12 vid-container">
+                                    <iframe class="vid_frame" src={{song.video}}>
+                                    </iframe>
+                                </div>
+                            </div><br>
+                            <div class="row justify-content-center">
+                                <div class="col-md-10 notes">
+                                    <form  method="POST" user_pk = {{user.pk}} song_pk= {{song.pk}}>
+                                        <p class="note_p" onclick="editNote(this)">{{song.note}}</p>
+                                        <textarea name="note_input" class="note_input"></textarea>
+                                        <button type="button" onclick="saveNote(this)" class="btn btn-success float-right" style="display: none;">Save</button>
+                                        {% csrf_token %}
+                                    </form>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="recordings_{{user.pk}}_{{song.pk}}" role="tabpanel" aria-labelledby="recordings-tab"><br>
+                        <div class="row justify-content-center align-items-center controls">
+                            <div class="btn-group" role="group" user_pk = {{user.pk}} song_pk= {{song.pk}}>
+                                <button class="btn btn-success record_button" onclick="startRecording(this)">Record</button>
+                                <button class="btn btn-warning pause_button" onclick="pauseRecording(this)" disabled>Pause</button>
+                                <button class="btn btn-danger stop_button" onclick="stopRecording(this)" disabled>Stop</button>
+                            </div>
+                        </div><br>
+                        <div class="col-md-12 recordings">
+                            <ul class="list-group temp_list"></ul><br>
+                            <h3 class="recordings_subtitle">Recordings</h3>
+                            <ul class="list-group recordings_list">
+                                {% for recording in recordings %}
+                                    {% if recording.song == song %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center" style="font-size: larger;">
+                                        <audio controls="controls" src="{{MEDIA_URL}}{{recording.file}}"></audio>
+                                        {{recording.name}}
+                                        <a class="badge badge-danger badge-pill rec-del" href="{% url 'song_recording_delete' user.pk song.pk recording.pk %}">x</a> 
+                                    </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

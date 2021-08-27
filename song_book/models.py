@@ -1,3 +1,4 @@
+from datetime import date
 from django.db import models
 from users.models import MyUser
 
@@ -11,5 +12,16 @@ class Song(models.Model):
     user = models.ForeignKey(
         MyUser,
         related_name='songs',
+        on_delete=models.CASCADE,
+    )
+
+class Recording(models.Model):
+    file = models.FileField(upload_to='song_book/recordings/')
+    dt = models.DateTimeField(auto_now_add=True)
+    name = models.TextField(default=dt)
+
+    song = models.ForeignKey(
+        Song,
+        related_name='recordings',
         on_delete=models.CASCADE,
     )

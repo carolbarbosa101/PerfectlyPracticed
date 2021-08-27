@@ -19,6 +19,19 @@
     cursor: -webkit-grabbing;
 }
 
+.modal-title{
+    font-size: 50px;
+}
+
+.nav.nav-tabs.justify-content-center{
+    font-size: x-large;
+}
+
+.btn.btn-outline-success.add-vid{
+    width: 70px;
+    font-size: large;
+}
+
 .vid_frame{
     width: 100%;
     height: 650px;
@@ -42,3 +55,37 @@
     max-width: 100%;
 }
 
+.row.justify-content-center.align-items-center.controls{
+    scale: 1.2;
+}
+
+.btn-group{
+    width: 20%;
+}
+.btn-group .btn {
+    width: 50%;
+}
+.btn.btn-warning.pause_button{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.list-group-item.d-flex.justify-content-center.align-items-center.temp{
+    font-size: larger;
+    background-color: lightgoldenrodyellow;
+}
+
+.btn.btn-success.save{
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.preview-audio{
+    margin-left: 30px;
+}
+
+.recordings_subtitle{
+    text-align:center;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    height: 40px;
+}

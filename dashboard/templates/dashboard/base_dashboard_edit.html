@@ -1,4 +1,6 @@
 {% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
 {% block goal_editing %}
     {% if goal.editing == True %}
     <form method="POST">
@@ -13,7 +15,7 @@
         </td>
         <td>
             <button type="submit" class="btn btn-light btn-sm" id="save_button"> 
-                {% include './icons/save-svgrepo-com.svg' %}
+                <img src="{% static 'dashboard/save-svgrepo-com.svg' %}" alt="save">
             </button>
         </td>
         {% csrf_token %}
@@ -26,7 +28,7 @@
         </td>
         <td class="edit_button">
             <a href="{% url 'goal_edit' user.pk goal.pk %}">
-                {% include './icons/pencil-fill.svg' %}
+                <img src="{% static 'dashboard/pencil-fill.svg' %}" alt="edit">
             </a>
         </td>
     {% endif %}

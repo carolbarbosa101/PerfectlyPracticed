@@ -13,10 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-import users
 from django.contrib import admin
 from django.urls import path, include
-import dashboard.views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,3 +27,8 @@ urlpatterns = [
     path('', include('metronome.urls')), 
     path('', include('tuner.urls')), 
 ]
+
+# if in development, save media files at these urls
+# but in production, don't do this
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
