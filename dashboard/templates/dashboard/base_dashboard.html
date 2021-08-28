@@ -14,7 +14,7 @@
                     <td id="goal_cell">{{ goal.text }}</td>
                     <td id="date_cell">{{ goal.due_date }}</td>
                     <td id="checkbox">
-                        <input type="checkbox" onclick="location.href='{% url 'goal_tick' user.pk goal.pk %}'">
+                        <input type="checkbox" onclick="location.href='{% url 'goal_tick' user.pk goal.pk %}'" required>
                     </td>
                     <td class="edit_button">
                         <a href="{% url 'goal_edit' user.pk goal.pk %}">
@@ -27,7 +27,7 @@
             <tr>
                 <form method="POST">
                     <td>
-                        <input name="goal_input" id="goal_input" placeholder="Enter a new goal" />
+                        <input name="goal_input" id="goal_input" placeholder="Enter a new goal" required/>
                     </td>
                     <td>
                         <input type="date" name="date_input" id="date_input" />
@@ -40,20 +40,32 @@
                     {% csrf_token %}
                 </form> 
             </tr>
-            <tr>
-                {% if invalid_entry == True %}
-                    <div class="alert alert-warning alert-dismissible" role="alert">
-                        Please enter a goal.
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                {% endif %}
-            </tr>
         </table>
     </div> 
     <div class="col-md-6" id="calendar">
-        {{ cal|safe }} 
+        <div id="carouselExampleControls" class="carousel slide" data-interval="false" data-ride="false" data-wrap="false">
+            <div class="carousel-inner">
+                {% for cal in cals %}
+                    {% if forloop.last %}
+                    <div class="carousel-item active">
+                        {{ cal|safe }}
+                    </div>
+                    {% else %}
+                    <div class="carousel-item">
+                        {{ cal|safe }}
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+        </div>
     </div> 
 </div>
 {% endblock %}

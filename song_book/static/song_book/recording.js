@@ -102,7 +102,6 @@ function saveOrDiscard(elem, blob){
     $(saveBtn).click(function() {
         // send blob to Django view.py
         sendBlobToView(blob, user_pk, song_pk);
-        window.location.reload()
     });
     
     $(discardBtn).click(function(){
@@ -118,16 +117,18 @@ function sendBlobToView(blob, user_pk, song_pk){
     var dt = new Date().toLocaleString().replace(', ','_').replaceAll('/','-').replaceAll(':', '-');
     var filename = `${dt}.wav`
     var display_name=prompt('Pick a name for your recording:', dt);
-    if(!display_name) display_name = dt;
 
-    formData.append('file', blob, filename)
-    formData.append('display_name', display_name)
-	fetch(`/song_book/${user_pk}/song_recording/${song_pk}/`, {
-		headers: {"X-CSRFToken": csrftoken},
-		method: 'post',
-		body: formData,
-	});
-
-    console.log('sucessssss')
+    // display_name == null if user cancels in prompt
+    if(display_name !== null){
+        if(display_name ==='') display_name = dt;
+        formData.append('file', blob, filename)
+        formData.append('display_name', display_name)
+        fetch(`/song_book/${user_pk}/song_recording/${song_pk}/`, {
+            headers: {"X-CSRFToken": csrftoken},
+            method: 'post',
+            body: formData,
+        });
+        window.location.reload()
+    }
 }
 

@@ -100,12 +100,6 @@ class GoalsTest(TestCase):
         '2021-12-31', '/dashboard/1/goal_edit/1/')
         edit_goal = Goal.objects.first()
         self.check_goal_and_date(edit_goal.text, edit_goal.due_date, 'Learn the F barre chord', datetime.date(2021, 12, 31))
-
-    def test_no_blank_goal_inserted(self):
-        url = self.sign_up_and_login_url()
-        self.goal_post('goal_input', 'date_input', '', 
-        '', url)
-        self.assertEqual(Goal.objects.count(), 0)
     
     def test_goals_unique_to_each_user(self):
         # user2@test.com signed up and logged in 

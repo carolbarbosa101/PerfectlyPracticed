@@ -26,10 +26,8 @@ class DashboardTest(FunctionalTest):
         self.browser.find_element_by_css_selector('.song_book')
         self.browser.find_element_by_css_selector('.metronome ')
         self.browser.find_element_by_css_selector('.tuner')
-        self.browser.find_element_by_css_selector('.log')
 
         # He can see links to the profile, settings and log out cal
-        self.browser.find_element_by_css_selector('.profile')
         self.browser.find_element_by_css_selector('.settings_link')
         self.browser.find_element_by_css_selector('.logout')
 
@@ -95,10 +93,7 @@ class DashboardTest(FunctionalTest):
         self.find_and_fill_1('goal_input', '')
         self.find_and_click('#add_button')
 
-        # This fails and an alert pops up saying 'Please enter a goal.'
-        alert = self.browser.find_element_by_css_selector('.alert')
-        self.assertIn('Please enter a goal.', alert.text)
-        # self.fail('Finish the test!')  
+        # This fails and a popover appears saying to fill in this field
 
     def add_login_date_and_check_colour(self, delta, colour):
         today = datetime.today()
@@ -124,12 +119,12 @@ class DashboardTest(FunctionalTest):
         # He also sees a calendar to the right
 
         # He sees that the current day is highlighted and in bold on the calendar
-        self.add_login_date_and_check_colour(0, '#66ff66')
+        self.add_login_date_and_check_colour(0, '#FFF7C0')
 
         # (for the purposes of the test today's date will not be changed and login dates are added for previous days )
         # Ziggy logs in the next day and sees yesterday's date has a non-white colour (different to the colour of today's date),
         # to highlight that he logged in yesterday
-        self.add_login_date_and_check_colour(4, '#39CCCC')
+        self.add_login_date_and_check_colour(4, '#99D3DF')
 
         # Ziggy then misses a day and when logs in the following day he sees that 
         # yesterday's date stays white, showing he didn't log in 
@@ -148,7 +143,7 @@ class DashboardTest(FunctionalTest):
         self.assertEqual(date_tag.value_of_css_property('background-color'), 'rgba(0, 0, 0, 0)')
 
         # But today's date still changes colour
-        self.add_login_date_and_check_colour(2, '#39CCCC')
+        self.add_login_date_and_check_colour(2, '#99D3DF')
         
         # When he logs in the following day, he sees the past two days have changed colour
-        self.add_login_date_and_check_colour(1, '#39CCCC')
+        self.add_login_date_and_check_colour(1, '#99D3DF')

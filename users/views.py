@@ -3,17 +3,14 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib import messages
 from .forms import UserRegisterForm
-from django.contrib.auth.decorators import login_required
+from musicsite.middleware import login_exempt
 
-# Create your views here.
-def login(request):
-    return render(request, 'users/login.html',{})
-
-@login_required
+@login_exempt
 def login_success(request):
     pk = request.user.id
     return redirect(f'dashboard/{pk}/')
 
+@login_exempt
 def sign_up(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)

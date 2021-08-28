@@ -57,6 +57,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'musicsite.middleware.LoginRequiredMiddleware',
+    'musicsite.middleware.SetLastVisitMiddleware',
 ]
 
 ROOT_URLCONF = 'musicsite.urls'

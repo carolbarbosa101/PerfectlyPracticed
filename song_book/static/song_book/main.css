@@ -56,7 +56,7 @@
 }
 
 .row.justify-content-center.align-items-center.controls{
-    scale: 1.2;
+    transform: scale(1.2);
 }
 
 .btn-group{

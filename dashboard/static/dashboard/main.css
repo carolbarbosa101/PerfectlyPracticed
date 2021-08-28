@@ -49,24 +49,26 @@
 }
 
 
-
 #goals_table{
-    margin-bottom: 5px;
+    transform:scale(1.2);
+    margin-top: 12px;
+    margin-right: 50px;
 }
 
 #goal_heading{
     font-size: 20px;
     padding: 5px;
-    background-color: #001f3f;
-    color: #3badad;
-
+    background-color: #0B3C5D;
+    color: white;
+    width: 400px;
     
 }
 #date_heading {
     font-size: 20px;
     padding: 5px;
-    background-color: #001f3f;
-    color: #3badad;
+    background-color: #0B3C5D;
+    color: white;
+    width: 50px;
 }
 
 #goal_cell{
@@ -112,11 +114,13 @@
     outline: none;
 }
 
+
 .text-center.month {
     margin: 0 auto;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     position: relative;
     z-index: 10;
+    margin-bottom: 5px;
 }
 
 
@@ -125,8 +129,8 @@
     text-align: center;
     font-size: 30px;
     padding: 20px;    
-    background-color: #001f3f;
-    color: #3badad;
+    background-color: #0B3C5D;
+    color: white;
 }
 
 .month tbody tr{
@@ -143,15 +147,23 @@
     font-weight: normal;
     font-size: 20px;
     padding: 10px 20px;    
-    background-color: #011b36;
-    color: #3badad;
+    background-color: #F2F2F2;
+    color: #383b40;
 }
 
 .month tbody :nth-of-type(3),
 .month tbody :nth-of-type(4),
 .month tbody :nth-of-type(5),
 .month tbody :nth-of-type(6),
-.month tbody :nth-of-type(7) {
+.month tbody :nth-of-type(7), 
+.month tbody :nth-of-type(8){
     font-size: 20px;
     padding: 20px;
+}
+
+.carousel-control-prev-icon, 
+.carousel-control-next-icon {
+     align-self: flex-start; 
+     margin-top: 30px;
+
 }
