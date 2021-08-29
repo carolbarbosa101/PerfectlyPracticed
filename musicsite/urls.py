@@ -31,6 +31,6 @@ urlpatterns = [
 ]
 
 # if in development, save media files at these urls
-# but in production, don't do this
+# but in production, the above path is used
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

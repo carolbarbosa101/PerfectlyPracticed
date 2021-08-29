@@ -39,7 +39,7 @@ class SetLastVisitMiddleware(object):
             # check last login user field
             # create login date object IF there isn't one for that day already
             last_login_date = the_user.last_login
-            if(LoginDate.objects.filter(login_date=last_login_date).count() == 0):
+            if(LoginDate.objects.filter(login_date=last_login_date, user=the_user).count() == 0):
                 LoginDate.objects.create(user=the_user, login_date=last_login_date)
 
         response = self.get_response(request)
