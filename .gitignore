@@ -6,3 +6,11 @@ __pycache__
 .vscode
 timer/static/timer/tests/qunit-2.16.0.js
 timer/static/timer/tests/qunit-2.16.0.css
+
+/media/**
+/static/**
+!/media
+!/static
+*/migrations/**
+!*/migrations
+!*/migrations/__init__.py
