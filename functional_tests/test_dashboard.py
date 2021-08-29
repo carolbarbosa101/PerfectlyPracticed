@@ -26,18 +26,19 @@ class DashboardTest(FunctionalTest):
         self.browser.find_element_by_css_selector('.song_book')
         self.browser.find_element_by_css_selector('.metronome ')
         self.browser.find_element_by_css_selector('.tuner')
-
-        # He can see links to the profile, settings and log out cal
-        self.browser.find_element_by_css_selector('.settings_link')
         self.browser.find_element_by_css_selector('.logout')
+
+        # He also sees his first name on the top right showing he is logged in 
+        f_name = self.browser.find_element_by_css_selector('.f_name')
+        self.assertEqual(f_name.text, 'User')
 
         # He clicks the logout button and it redirects him back to the login page
         self.find_and_click('.logout')
-        self.assertIn('Music Practice', self.browser.title)  
+        self.assertIn('Perfectly Practiced', self.browser.title)  
 
-        # When he tries to access the dashbaord again with a url, the website prompt for him to login again
+        # When he tries to access the dashboard again with a url, the website prompt for him to login again
         self.browser.get(self.live_server_url + '/dashboard/1/')
-        self.assertIn('Music Practice', self.browser.title)  
+        self.assertIn('Perfectly Practiced', self.browser.title)  
 
 
     def test_dashboard_goals(self): 

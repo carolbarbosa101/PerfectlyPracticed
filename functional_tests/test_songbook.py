@@ -23,7 +23,7 @@ class SongBookTest(FunctionalTest):
         self.find_and_click('#learning_submit')
 
         # The element appears in this section now after adding 
-        song = self.browser.find_element_by_css_selector('#song_1_1') # user_pk = 6 due to 6th login with all tests
+        song = self.browser.find_element_by_css_selector('#song_6_1') # user_pk = 6 due to 6th login with all tests
         self.assertIn('Starman', song.text)
 
         # He adds in a few more songs into different sections
@@ -41,14 +41,14 @@ class SongBookTest(FunctionalTest):
         # He then deletes one of the songs 
         list_group_children = self.browser.find_elements_by_css_selector('#rusty_list > li')
         self.assertEqual(len(list_group_children), 2)
-        self.find_and_click('#song_1_6 > a')
+        self.find_and_click('#song_6_6 > a')
         list_group_children = self.browser.find_elements_by_css_selector('#rusty_list > li')
         self.assertEqual(len(list_group_children), 1)
 
         # Rearranging items is also possible (see song_book/tests.py, not possible in selenium for sortable js)
         
         # When he clicks on Heroes song element he is brought to its pop up box
-        self.find_and_click('#song_1_2')
+        self.find_and_click('#song_6_2')
         self.browser.switch_to.active_element
 
         # Here he sees he can embed a youtube tutorial link by pasting in the URL
@@ -56,7 +56,7 @@ class SongBookTest(FunctionalTest):
         self.find_and_click('.btn.btn-outline-success')
 
         # When he opens the pop up box again he sees the video he selected is now embeded
-        self.find_and_click('#song_1_2')
+        self.find_and_click('#song_6_2')
         self.browser.switch_to.active_element
         iframe = self.browser.find_element_by_css_selector('.vid_frame')
         link = iframe.get_attribute('src')
@@ -102,7 +102,7 @@ class SongBookTest(FunctionalTest):
         time.sleep(2)
 
         # Upon re-opening the pop up, he sees his previous recording saved
-        self.find_and_click('#song_1_2')
+        self.find_and_click('#song_6_2')
         self.browser.implicitly_wait(10)
         self.browser.switch_to.active_element
         self.find_and_click('#recordings-tab')
@@ -118,7 +118,7 @@ class SongBookTest(FunctionalTest):
         # time.sleep(2)
 
         # # And sees it is no longer there upon re-opening the box
-        # self.find_and_click('#song_1_2')
+        # self.find_and_click('#song_6_2')
         # self.browser.switch_to.active_element
         # self.find_and_click('#recordings-tab')
         # time.sleep(2)

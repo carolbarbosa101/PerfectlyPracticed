@@ -1,9 +1,12 @@
-body {
-  background: #fafafa;
-  color: #333333;
-  margin-top: 5rem;
+#slogan{
+  margin-bottom: 20px;
+  text-align: center;
+  padding: 30px 30px 30px 30px;
+  border-radius: 10px;
 }
+
 .content-section {
+    margin-top: 30px;
     background: #ffff;
     padding: 10px 20px;
     border: 1px solid #dddddd;
@@ -11,5 +14,9 @@ body {
     position: absolute;
     width: 500px;
     left: 50%;
-    transform:translateX(-50%);
+    transform:translateX(-50%) scale(1.1);
+  }
+
+  #sign_up{
+    font-size: medium;
   }

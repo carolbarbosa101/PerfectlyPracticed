@@ -1,10 +1,20 @@
-{% extends 'users/base.html' %}
+{% extends 'users/base_auth.html' %}
 {% load crispy_forms_tags %}
-{% block content%}
+{% load static %}
+
 {% block title %}
-<title>Login</title>
-{% endblock %}
-<div class="content-section" width>
+<title>Perfectly Practiced</title>
+{% endblock title %}
+
+{% block content%}
+<div id="slogan">
+    <h1>Practice makes <span style="color: #3badad;">Permanent </span> so Practice <span style="color: #3badad;">Perfectly</span>!</h1>
+</div>
+
+{% block message %}
+{% endblock message %}
+
+<div class="content-section">
     <form method="POST">{% csrf_token %}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Log in to get started.</legend>
@@ -22,5 +32,5 @@
         </small>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
 

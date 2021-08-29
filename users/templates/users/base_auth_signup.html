@@ -1,10 +1,16 @@
-{% extends 'users/base.html' %}
+{% extends 'users/base_auth.html' %}
 {% load crispy_forms_tags %}
-{% block content%}
+{% load static %}
+
 {% block title %}
 <title>Sign Up</title>
-{% endblock %}
-<body>
+{% endblock title %}
+
+{% block content%}
+
+{% block message %}
+{% endblock message %}
+
 <div class="content-section">
     <form method="POST">{% csrf_token %}
         <fieldset class="form-group">
@@ -19,5 +25,4 @@
         <br><br>
     </form>
 </div>
-</body>
-{% endblock %}
+{% endblock content %}

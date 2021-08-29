@@ -4,15 +4,19 @@
 
 #to_learn_title{
     background-color: salmon;
+    border-radius: 5px;
 }
 #learning_title{
     background-color: palegoldenrod;
+    border-radius: 5px;
 }
 #learned_title{
-    background-color: #77dd77
+    background-color: #77dd77;
+    border-radius: 5px;
 }
 #rusty_title{
     background-color: burlywood;
+    border-radius: 5px;
 }
 
 .list-group-item{

@@ -8,7 +8,7 @@ class SignupLoginTest(FunctionalTest):
         self.browser.get(self.live_server_url)
 
         # He is presented with a login page with username and password textboxes
-        self.assertIn('Music Practice', self.browser.title)  
+        self.assertIn('Perfectly Practiced', self.browser.title)  
 
         # Ziggy does not have an account so he chooses the sign up link that is below the entry fields
         self.find_and_click('#sign_up')

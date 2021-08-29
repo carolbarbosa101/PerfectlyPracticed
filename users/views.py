@@ -21,4 +21,4 @@ def sign_up(request):
             return redirect('login')
     else:
         form = UserRegisterForm()
-    return render(request, 'users/sign_up.html',{'form':form})
+    return render(request, 'users/base_auth_signup.html',{'form':form})

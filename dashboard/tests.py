@@ -49,7 +49,7 @@ class GoalsTest(TestCase):
         redirect_response = self.client.get('/dashboard/1/')
         login_url = redirect_response.url
         login_response = self.client.get(login_url)
-        self.assertTemplateUsed(login_response, 'users/login.html')
+        self.assertTemplateUsed(login_response, 'users/base_auth_login.html')
 
     def test_successful_login_uses_dashboard_template(self):
         url = self.sign_up_and_login_url()

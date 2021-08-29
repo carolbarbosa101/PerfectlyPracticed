@@ -23,11 +23,11 @@ class RegisterLoginTest(TestCase):
 
     def test_uses_login_template(self):
         response = self.client.get('/')
-        self.assertTemplateUsed(response, 'users/login.html')
+        self.assertTemplateUsed(response, 'users/base_auth_login.html')
 
     def test_uses_sign_up_template(self):
         response = self.client.get('/sign_up')
-        self.assertTemplateUsed(response, 'users/sign_up.html')
+        self.assertTemplateUsed(response, 'users/base_auth_signup.html')
     
     def test_details_saved_after_post(self):
         self.sign_up_post()
