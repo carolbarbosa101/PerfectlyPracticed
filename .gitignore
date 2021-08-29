@@ -11,3 +11,6 @@ timer/static/timer/tests/qunit-2.16.0.css
 /static/**
 !/media
 !/static
+*/migrations/**
+!*/migrations
+!*/migrations/__init__.py
