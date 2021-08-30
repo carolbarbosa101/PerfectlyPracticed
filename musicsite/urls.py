@@ -27,7 +27,6 @@ urlpatterns = [
     path('', include('song_book.urls')), 
     path('', include('metronome.urls')), 
     path('', include('tuner.urls')), 
-    re_path(r'^media/(?P<path>.*)$', serve, {'document_root':settings.MEDIA_ROOT}),
 ]
 
 # if in development, save media files at these urls
