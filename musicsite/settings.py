@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('pp_secret_key')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'axr005.eu.pythonanywhere.com', 'perfectlypracticed.herokuapp.com']
 
