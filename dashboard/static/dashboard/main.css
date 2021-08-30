@@ -51,6 +51,14 @@ body {
     font-family: 'Raleway', sans-serif;
 }
 
+#goals_subtitle{
+    font-size: 23px;
+}
+
+.subtitles{
+    text-align: center;
+}
+
 #goals_table{
     transform:scale(1.2);
     margin-top: 12px;

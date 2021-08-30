@@ -56,7 +56,7 @@ function scheduleNote(time){
   playOsc(time);
 }
 
-
+// schedules when the next note should be played ahead of time using the more accurate Web Audio API clock 
 function scheduler(){
   while (nextNoteTime < audioContext.currentTime + scheduleAheadTime ) {
     scheduleNote(nextNoteTime);

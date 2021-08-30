@@ -3,6 +3,7 @@ const model_url =
 let pitch;
 let mic;
 let freq;
+// lightslider carousel settings
 var slider = $('#light_slider').lightSlider({
   item: 5,
   loop: true,

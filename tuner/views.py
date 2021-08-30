@@ -6,7 +6,6 @@ import os
 
 
 def tuner(request, pk):
-    the_user = MyUser.objects.get(pk=pk)
     notes_file = open(os.path.join(settings.BASE_DIR, 'tuner/static/tuner/notes.json'))
     notes_dict = json.load(notes_file)
     notes_list = notes_dict.keys()

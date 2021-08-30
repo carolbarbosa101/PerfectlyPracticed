@@ -18,6 +18,7 @@ def dashboard(request, pk):
     
     goals = Goal.objects.filter(completed=False, user=the_user)
 
+    # create calendar for all months user has logged in 
     cals = CustomCal.calendar_list(pk)
     
     return render(request, 'dashboard/base_dashboard.html',{'goals':goals, 'cals':cals, 'user':the_user})

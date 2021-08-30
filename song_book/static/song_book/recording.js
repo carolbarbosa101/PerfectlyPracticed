@@ -14,7 +14,7 @@ function startRecording(elem){
     $(elem).siblings('.stop_button').attr('disabled', false)
     $(elem).siblings('.pause_button').attr('disabled', false)
 
-    
+    // get user mic input    
     navigator.mediaDevices.getUserMedia(constraints)
     .then(function(stream) {
         audioContext.resume()

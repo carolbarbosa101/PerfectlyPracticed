@@ -69,8 +69,6 @@ class TimerTest(FunctionalTest):
         self.assertEqual(time_remaining.text , '25:00')
 
         # The colour of the task item listed also matches the colour of these segments
-        # self.assertIn('#ff0000', colour_item_0)
-        # self.assertIn('#00ff00', colour_item_1)
 
         # Once he hits start again he notices sees that the ring decreases in circumference as time elapses
         self.find_and_click('#timer_button')

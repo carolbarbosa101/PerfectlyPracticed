@@ -1,12 +1,4 @@
-// window.Musicsite = {}; 
-// window.Musicsite.initialize = function () {
-//     console.log('initialize called');
-//     // input some tasks
-//     $('Starman chords').attr({ type: 'text', name: 'task_input' }).appendTo('#task_form').focus();
-//     $('15').attr({ type: 'number', name: 'time_input' }).appendTo('#task_form').focus();
-//     $('#add_button').click()
-//     export {totalTime};
-//   };
+// get tasks, times and colours from django as JSON files
 
 let timeString = JSON.parse(document.getElementById('time_list').textContent);
 let timeList = timeString.substring(1, (timeString.length - 1)).split(', ');
@@ -35,6 +27,7 @@ function calculateTotalTime(){
   return total * 60;
 }
 
+// generate the segments allocated to each task depending on its fraction of the total time
 function calculateOffsets(){
   var offsets = [];
   var circleFractions = [];
@@ -59,19 +52,23 @@ function calculateOffsets(){
   return offsets;
 }
 
+// push the circle segments sequentially to create the final segmented circle
 function generateCircles(){
   var offsets = calculateOffsets();
   var circlesList = [];
+  // base grey circle when no tasks added
   circlesList.push(
     `<circle id="circle_base" class="timer_circle" cx="440" cy="320" r="300" 
     transform="rotate(-90, 440, 320)" stroke="grey" stroke-dasharray="1885"/>`
       )
+  // coloured task circles
   for(let i = 0; i < offsets.length; i++){
     circlesList.push(
     `<circle id="circle_${i}" class="timer_circle" cx="440" cy="320" r="300" 
      transform="rotate(-90, 440, 320)" stroke="${colourList[i]}CC" stroke-dasharray="1885" stroke-dashoffset="${offsets[i]}"/>`
       )
   }
+  // final grey circle whose stroke-dashoffset gets updated to animate the countdown
   circlesList.push(
     `<circle id="circle_top" class="timer_circle" cx="440" cy="320" r="300"/>
     <path
@@ -147,7 +144,6 @@ function startTimer(){
     }, 1000);
 
 }
-
 
 function stopTimer(){
   $('#timer_button').replaceWith(

@@ -7,7 +7,7 @@ from django.contrib.sessions.models import Session
 from users.models import MyUser
 from selenium.webdriver.firefox.options import Options
 
-
+# parent class with helper methods for other functional tests
 class FunctionalTest(StaticLiveServerTestCase):
 
     def setUp(self):  
@@ -18,7 +18,6 @@ class FunctionalTest(StaticLiveServerTestCase):
     def tearDown(self):  
         self.browser.quit()
     
-
     def create_pre_authenticated_session(self, email, password, first_name, last_name):
         user = MyUser.objects.create(email=email, password=password, first_name=first_name, last_name=last_name)
         session = SessionStore()
@@ -27,7 +26,6 @@ class FunctionalTest(StaticLiveServerTestCase):
         session[HASH_SESSION_KEY] = user.get_session_auth_hash()
         session.save()
         ## to set a cookie we need to first visit the domain.
-        ## 404 pages load the quickest!
         self.browser.get(self.live_server_url)
         self.browser.add_cookie(dict(
             name=settings.SESSION_COOKIE_NAME,

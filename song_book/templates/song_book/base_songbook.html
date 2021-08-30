@@ -11,6 +11,7 @@
 {% endblock sheet %}
 
 {% block content%}
+<h5 class="subtitles">Add some songs to get started. Freely drag & drop them around and click the songs for more features.</h5><br>
 <div class="row" id="board">
 
     <div class="col-md-3" id="to_learn">
@@ -90,6 +91,7 @@
 <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
 <script src="{% static 'song_book/recording.js' %}"></script>
 <script>
+    // this script is for the note functionality in the video section of the modal box
     function editNote(elem) {
         $(elem).hide()
         $(elem).siblings('.btn').show()
@@ -121,6 +123,7 @@
     }
 </script>
 <script>
+    // this script adds the sorting functionality to the song items, including order persistence
     createSortable(to_learn_list);
     createSortable(learning_list);
     createSortable(learned_list);
@@ -136,7 +139,7 @@
             chosenClass: 'active',
 
             onEnd: function (evt) {
-                // change indexes of everything in target list (evt.to)
+                // on drag & drop end, indexes of everything in the target list (evt.to) is updated,
                 // by putting everything in evt.to, inside an array, getting their index and setting this as the new list indexes
                 [].forEach.call(evt.to.getElementsByClassName('list-group-item'), function (el,index) {
                         list_index = index;
