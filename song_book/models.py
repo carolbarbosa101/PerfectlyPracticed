@@ -18,7 +18,7 @@ class Song(models.Model):
 class Recording(models.Model):
     file = models.FileField(upload_to='song_book/recordings/')
     dt = models.DateTimeField(auto_now_add=True)
-    name = models.TextField(default=datetime.today().strftime('%Y-%m-%d_%H-%M-%S'), null=True)
+    name = models.TextField(default=datetime.today().strftime('%Y-%m-%d_%H-%M-%S'))
 
     song = models.ForeignKey(
         Song,

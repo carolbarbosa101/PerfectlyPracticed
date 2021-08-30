@@ -84,8 +84,7 @@ def song_video(request, user_pk, song_pk):
 def song_recording(request, user_pk, song_pk):
     f = request.FILES.get('file')
     display_name = request.POST.get('display_name')
-    if display_name is None or not display_name:
-        display_name = datetime.today().strftime('%Y-%m-%d_%H-%M-%S')
+
     the_user = get_object_or_404(MyUser, pk = user_pk)
     the_song = Song.objects.get(pk = song_pk, user=the_user)
     recording = Recording.objects.create(file=f, name=display_name, song=the_song)

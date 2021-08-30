@@ -47,7 +47,17 @@
     position: absolute;
     left: 430px;
     bottom: 270px;
-    transform: scale(2);
+    transform: scale(2) translateX(-37px);
+    width: 70px;
+    
+}
+
+#reset_button{
+    position: absolute;
+    left: 430px;
+    bottom: 270px;
+    transform: scale(2) translateX(37px);
+    width: 70px;
 
 }
 

@@ -126,12 +126,11 @@ function startTimer(){
     return
   }
   
-  $('#start_sound').prop('muted', false);
   $('#start_sound')[0].play();
 
   // change to stop button upon click
   $('#timer_button').replaceWith(
-    "<button class='btn btn-danger' id='timer_button'>Stop</button>"
+    "<button class='btn btn-warning' id='timer_button'>Pause</button>"
     );
     $('#timer_button').off('click')
     $('#timer_button').click(stopTimer)
@@ -160,14 +159,11 @@ function stopTimer(){
   }
   
   function timesUp(){
-    $('#end_sound').prop('muted', false);
     $('#end_sound')[0].play();
     $(".modal").modal();
   }
   
   document.addEventListener('DOMContentLoaded', function() {
-    $('#start_sound').prop('muted', true)
-    $('#end_sound').prop('muted', true)
     $('#timer_label').html(formatTimeLeft(timeLeft));
     $('#timer_button').click(startTimer);
     generateCircles();
