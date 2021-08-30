@@ -31,7 +31,7 @@
     text-decoration: none;
     
 }
-.profile:hover, .settings_link:hover, #logout:hover {
+.profile:hover, .settings_link:hover, .logout:hover {
     color: white;
     text-decoration: none;
 }
