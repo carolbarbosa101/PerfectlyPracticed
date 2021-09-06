@@ -9,6 +9,9 @@ var constraints = { audio: {
     volume: 1.0,
 }, video:false }
 
+var user_pk;
+var song_pk;
+
 function startRecording(elem){
     $(elem).attr('disabled', true)
     $(elem).siblings('.stop_button').attr('disabled', false)
@@ -73,8 +76,8 @@ function stopRecording(elem){
 }
 
 function saveOrDiscard(elem, blob){
-    var user_pk = $(elem).parent().attr('user_pk')
-    var song_pk = $(elem).parent().attr('song_pk')
+    user_pk = $(elem).parent().attr('user_pk')
+    song_pk = $(elem).parent().attr('song_pk')
     var blob_url = URL.createObjectURL(blob);
     
     var au = document.createElement('audio');
@@ -101,7 +104,8 @@ function saveOrDiscard(elem, blob){
 
     $(saveBtn).click(function() {
         // send blob to Django view.py
-        sendBlobToView(blob, user_pk, song_pk);
+        //sendBlobToView(blob, user_pk, song_pk);
+        getSignedRequest(blob, user_pk, song_pk)
     });
     
     $(discardBtn).click(function(){
@@ -116,7 +120,7 @@ function sendBlobToView(blob, user_pk, song_pk){
     // have a pre-selected actual file name and user-selected display name for security
     var dt = new Date().toLocaleString().replace(', ','_').replaceAll('/','-').replaceAll(':', '-');
     var filename = `${dt}.wav`
-    var display_name=prompt('Pick a name for your recording:', dt);
+    display_name=prompt('Pick a name for your recording:', dt);
 
     // display_name == null if user cancels in prompt
     if(display_name !== null){
@@ -131,4 +135,72 @@ function sendBlobToView(blob, user_pk, song_pk){
         window.location.reload()
     }
 }
+
+function getSignedRequest(file){
+    let formData = new FormData();
+    // have a pre-selected actual file name and user-selected display name for security
+    var dt = new Date().toLocaleString().replace(', ','_').replaceAll('/','-').replaceAll(':', '-');
+    var file_name = dt
+    display_name=prompt('Pick a name for your recording:', dt);
+    if(display_name !== null){
+        if(display_name ==='') display_name = dt;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", `/song_book/song_recording/sign_s3/${file_name}/`);
+        xhr.onreadystatechange = function(){
+          if(xhr.readyState === 4){
+            if(xhr.status === 200){
+              var response = JSON.parse(xhr.responseText);
+              uploadFile(file, response.data, response.url, display_name);
+              console.log(file)
+              console.log(response.data)
+              console.log(response.url)
+            }
+            else{
+              alert("Could not get signed URL.");
+            }
+          }
+        };
+        xhr.send();
+    }
+
+  }
+
+  function uploadFile(file, s3Data, url, display_name){
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", s3Data.url);
+  
+    var postData = new FormData();
+    for(key in s3Data.fields){
+      postData.append(key, s3Data.fields[key]);
+    }
+    postData.append('file', file);
+  
+    xhr.onreadystatechange = function() {
+      if(xhr.readyState === 4){
+        if(xhr.status === 200 || xhr.status === 204){
+            saveToDB(url, display_name)
+        }
+        else{
+          alert("Could not upload file.");
+        }
+     }
+    };
+    xhr.send(postData);
+  }
+
+  function saveToDB(url, display_name){
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', `/song_book/${user_pk}/song_recording/${song_pk}/`);
+    var postData = new FormData();
+    postData.append('url', url)
+    postData.append('display_name', display_name)
+
+    fetch(`/song_book/${user_pk}/song_recording/${song_pk}/`, {
+        headers: {"X-CSRFToken": csrftoken},
+        method: 'post',
+        body: postData,
+    });
+    window.location.reload()
+  }
 

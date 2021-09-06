@@ -10,5 +10,6 @@ urlpatterns = [
     path('song_book/song_note/', views.song_note, name='song_note'),
     path('song_book/<int:user_pk>/song_video/<int:song_pk>/', views.song_video, name='song_video'),
     path('song_book/<int:user_pk>/song_recording/<int:song_pk>/', views.song_recording, name='song_recording'),
+    path('song_book/song_recording/sign_s3/<str:file_name>/', views.sign_s3, name='sign_s3'),
     path('song_book/<int:user_pk>/song_recording_delete/<int:song_pk>/<int:recording_pk>/', views.song_recording_delete, name='song_recording_delete'),
 ]

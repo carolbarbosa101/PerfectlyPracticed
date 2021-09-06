@@ -1,8 +1,12 @@
-from os import name
 from django.shortcuts import get_object_or_404, redirect, render
 from users.models import MyUser
 from .models import Song, Recording
 from datetime import datetime
+import os
+import json
+import boto3
+from botocore.client import Config
+from django.http import HttpResponse
 
 def song_book(request, pk):
     the_user = MyUser.objects.get(pk=pk)
@@ -82,7 +86,7 @@ def song_video(request, user_pk, song_pk):
     return redirect(f'/song_book/{user_pk}/')
 
 def song_recording(request, user_pk, song_pk):
-    f = request.FILES.get('file')
+    f = request.POST.get('url')
     display_name = request.POST.get('display_name')
 
     the_user = get_object_or_404(MyUser, pk = user_pk)
@@ -91,6 +95,37 @@ def song_recording(request, user_pk, song_pk):
     recording.save()
 
     return redirect(f'/song_book/{user_pk}/')
+
+def sign_s3(request, file_name):
+    AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+
+    file_name = f'song_book/recordings/{file_name}.wav'
+    file_type = 'audio/wav'
+
+    s3 = boto3.client('s3',
+                      region_name='eu-west-2',
+                      aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+                      config=Config(signature_version='s3v4'),
+                      aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
+                      )
+
+    presigned_post = s3.generate_presigned_post(
+        Bucket = AWS_STORAGE_BUCKET_NAME,
+        Key = file_name,
+        Fields = {"acl": "public-read", "Content-Type": file_type},
+        Conditions = [
+            {'acl': "public-read"},
+            {"Content-Type": file_type}
+        ],
+        ExpiresIn = 3600
+    )
+
+    json_dump = json.dumps({
+        'data': presigned_post,
+        'url': 'https://%s.s3.eu-west-2.amazonaws.com/%s' % (AWS_STORAGE_BUCKET_NAME, file_name),
+    })
+
+    return HttpResponse(json_dump, content_type='json')
 
 def song_recording_delete(request, user_pk, song_pk, recording_pk):
     the_user = get_object_or_404(MyUser, pk = user_pk)
