@@ -114,47 +114,26 @@ function saveOrDiscard(elem, blob){
     });
 }
 
-function sendBlobToView(blob, user_pk, song_pk){
+// first a get request is sent to sign off with the AWS details in Django
+function getSignedRequest(file){
     let formData = new FormData();
-
     // have a pre-selected actual file name and user-selected display name for security
     var dt = new Date().toLocaleString().replace(', ','_').replaceAll('/','-').replaceAll(':', '-');
-    var filename = `${dt}.wav`
+    var file_name = `${dt}.wav`
     display_name=prompt('Pick a name for your recording:', dt);
 
     // display_name == null if user cancels in prompt
     if(display_name !== null){
         if(display_name ==='') display_name = dt;
-        formData.append('file', blob, filename)
-        formData.append('display_name', display_name)
-        fetch(`/song_book/${user_pk}/song_recording/${song_pk}/`, {
-            headers: {"X-CSRFToken": csrftoken},
-            method: 'post',
-            body: formData,
-        });
-        window.location.reload()
-    }
-}
-
-function getSignedRequest(file){
-    let formData = new FormData();
-    // have a pre-selected actual file name and user-selected display name for security
-    var dt = new Date().toLocaleString().replace(', ','_').replaceAll('/','-').replaceAll(':', '-');
-    var file_name = dt
-    display_name=prompt('Pick a name for your recording:', dt);
-    if(display_name !== null){
-        if(display_name ==='') display_name = dt;
-
         var xhr = new XMLHttpRequest();
         xhr.open("GET", `/song_book/song_recording/sign_s3/${file_name}/`);
+
         xhr.onreadystatechange = function(){
           if(xhr.readyState === 4){
             if(xhr.status === 200){
+            // if the sign off is successful, we take the response data with the AWS details and the blob file, and upload
               var response = JSON.parse(xhr.responseText);
               uploadFile(file, response.data, response.url, display_name);
-              console.log(file)
-              console.log(response.data)
-              console.log(response.url)
             }
             else{
               alert("Could not get signed URL.");
@@ -179,6 +158,7 @@ function getSignedRequest(file){
     xhr.onreadystatechange = function() {
       if(xhr.readyState === 4){
         if(xhr.status === 200 || xhr.status === 204){
+            // if the upload to AWS is sucessful, we save the reference to the file in the DB with Django
             saveToDB(url, display_name)
         }
         else{
@@ -190,8 +170,6 @@ function getSignedRequest(file){
   }
 
   function saveToDB(url, display_name){
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', `/song_book/${user_pk}/song_recording/${song_pk}/`);
     var postData = new FormData();
     postData.append('url', url)
     postData.append('display_name', display_name)

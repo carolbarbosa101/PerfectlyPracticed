@@ -85,21 +85,12 @@ def song_video(request, user_pk, song_pk):
     song.save()
     return redirect(f'/song_book/{user_pk}/')
 
-def song_recording(request, user_pk, song_pk):
-    f = request.POST.get('url')
-    display_name = request.POST.get('display_name')
-
-    the_user = get_object_or_404(MyUser, pk = user_pk)
-    the_song = Song.objects.get(pk = song_pk, user=the_user)
-    recording = Recording.objects.create(file=f, name=display_name, song=the_song)
-    recording.save()
-
-    return redirect(f'/song_book/{user_pk}/')
-
 def sign_s3(request, file_name):
+    # this function signs off the wav file we want to send to AWS,
+    # with the AWS details stored in environment variables 
     AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 
-    file_name = f'song_book/recordings/{file_name}.wav'
+    file_name = f'song_book/recordings/{file_name}'
     file_type = 'audio/wav'
 
     s3 = boto3.client('s3',
@@ -126,6 +117,18 @@ def sign_s3(request, file_name):
     })
 
     return HttpResponse(json_dump, content_type='json')
+
+def song_recording(request, user_pk, song_pk):
+    f = request.POST.get('url')
+    display_name = request.POST.get('display_name')
+
+    the_user = get_object_or_404(MyUser, pk = user_pk)
+    the_song = Song.objects.get(pk = song_pk, user=the_user)
+    recording = Recording.objects.create(file=f, name=display_name, song=the_song)
+    recording.save()
+
+    return redirect(f'/song_book/{user_pk}/')
+
 
 def song_recording_delete(request, user_pk, song_pk, recording_pk):
     the_user = get_object_or_404(MyUser, pk = user_pk)
