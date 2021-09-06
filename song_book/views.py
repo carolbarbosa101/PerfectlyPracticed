@@ -7,6 +7,7 @@ import json
 import boto3
 from botocore.client import Config
 from django.http import HttpResponse
+import urllib.parse as urlparse
 
 def song_book(request, pk):
     the_user = MyUser.objects.get(pk=pk)
@@ -79,7 +80,9 @@ def song_video(request, user_pk, song_pk):
 
     # turn regular yt link to embed link
     raw_link = request.POST['link_input']
-    id = raw_link[32:43]
+    url_data = urlparse.urlparse(raw_link)
+    query = urlparse.parse_qs(url_data.query)
+    id = query["v"][0]
     embed_link = f'https://www.youtube.com/embed/{id}'
     song.video = embed_link
     song.save()
