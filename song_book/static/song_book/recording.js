@@ -92,6 +92,10 @@ function saveOrDiscard(elem, blob){
     var discardBtn = document.createElement('button');
     discardBtn.innerHTML = 'Discard';
     discardBtn.className = 'btn btn-danger discard';
+
+    var loading = document.createElement('span');
+    loading.className = 'loading';
+
     
     var li = document.createElement('li');
     li.className = 'list-group-item d-flex justify-content-center align-items-center temp'
@@ -100,6 +104,7 @@ function saveOrDiscard(elem, blob){
     li.appendChild(au);
     li.appendChild(saveBtn);
     li.appendChild(discardBtn);
+    li.appendChild(loading);
     $(elem).parents('.row.justify-content-center.align-items-center.controls').nextAll('.col-md-12.recordings').find('.list-group.temp_list').prepend(li);
 
     $(saveBtn).click(function() {
@@ -134,6 +139,7 @@ function getSignedRequest(file){
             // if the sign off is successful, we take the response data with the AWS details and the blob file, and upload
               var response = JSON.parse(xhr.responseText);
               uploadFile(file, response.data, response.url, display_name);
+              $('.loading').html(`<img src=${spinner}/>`)
             }
             else{
               alert("Could not get signed URL.");
