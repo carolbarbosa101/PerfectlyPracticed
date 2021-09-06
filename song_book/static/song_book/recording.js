@@ -139,7 +139,7 @@ function getSignedRequest(file){
             // if the sign off is successful, we take the response data with the AWS details and the blob file, and upload
               var response = JSON.parse(xhr.responseText);
               uploadFile(file, response.data, response.url, display_name);
-              $('.loading').html('<img src= /static/song_book/loading_spinner.svg/>')
+              $('.loading').html('<img src="/static/song_book/loading_spinner.svg">')
             }
             else{
               alert("Could not get signed URL.");
