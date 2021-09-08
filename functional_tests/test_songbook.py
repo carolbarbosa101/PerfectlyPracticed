@@ -108,19 +108,3 @@ class SongBookTest(FunctionalTest):
         self.find_and_click('#recordings-tab')
         recording = self.browser.find_element_by_tag_name('li')
 
-        # These last tests are having issues as fetch from js to python isn't working properly with selenium
-        # (uncaught (in promise) typeerror: networkerror when attempting to fetch resource)
-        # Saving/deleting a recording from the DB works perfectly fine in normal use however
-
-        # He then clicks the delete button to remove this 
-        # self.browser.implicitly_wait(10)
-        # self.find_and_click('badge.badge-danger.badge-pill.rec-del')
-        # time.sleep(2)
-
-        # # And sees it is no longer there upon re-opening the box
-        # self.find_and_click('#song_6_2')
-        # self.browser.switch_to.active_element
-        # self.find_and_click('#recordings-tab')
-        # time.sleep(2)
-        # recording = self.browser.find_element_by_tag_name('li')
-

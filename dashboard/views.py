@@ -4,28 +4,33 @@ from django.shortcuts import get_object_or_404, redirect, render
 import datetime 
 from dashboard.my_calendar import CustomCal
 from users.models import LoginDate, MyUser
+from django.http import HttpResponseForbidden
 
 
-def dashboard(request, pk):
-    the_user = MyUser.objects.get(pk=pk)
+def dashboard(request, user_pk):
+    the_user = MyUser.objects.get(pk=user_pk)
+    if request.user != the_user:
+        return HttpResponseForbidden('You do not have permission to view this page.')
     if request.method == 'POST':
         if (request.POST['date_input'] == ''):
             Goal.objects.create(text=request.POST['goal_input'], user = the_user)
         else:
             date = request.POST['date_input']
             Goal.objects.create(text=request.POST['goal_input'] , due_date=date, date_str=date, user = the_user)
-        return redirect(f'/dashboard/{pk}/')
+        return redirect(f'/dashboard/{user_pk}/')
     
     goals = Goal.objects.filter(completed=False, user=the_user)
 
     # create calendar for all months user has logged in 
-    cals = CustomCal.calendar_list(pk)
+    cals = CustomCal.calendar_list(user_pk)
     
     return render(request, 'dashboard/base_dashboard.html',{'goals':goals, 'cals':cals, 'user':the_user})
 
 
 def goal_tick(request, user_pk, goal_pk):
     the_user = MyUser.objects.get(pk=user_pk)
+    if request.user != the_user:
+        return HttpResponseForbidden('You do not have permission to view this page.')
     goal = get_object_or_404(Goal, user = the_user, pk = goal_pk)
     goal.completed = True
     goal.save()
@@ -33,6 +38,8 @@ def goal_tick(request, user_pk, goal_pk):
 
 def goal_edit(request, user_pk, goal_pk):
     the_user = MyUser.objects.get(pk=user_pk)
+    if request.user != the_user:
+        return HttpResponseForbidden('You do not have permission to view this page.')
     goal = get_object_or_404(Goal, user = the_user, pk = goal_pk)
     if (goal.editing == False):
         goal.editing = True

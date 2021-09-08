@@ -102,11 +102,13 @@ class GoalsTest(TestCase):
         self.check_goal_and_date(edit_goal.text, edit_goal.due_date, 'Learn the F barre chord', datetime.date(2021, 12, 31))
     
     def test_goals_unique_to_each_user(self):
-        # user2@test.com signed up and logged in 
+        # user2@test.com signed up and logged in, pot a goal
         url1 = self.sign_up_and_login_url()
         self.client.get(url1)
+        self.goal_post('goal_input', 'date_input', 'Learn the song Starman', 
+        '2021-08-01', url1)
 
-        # different user, testing@user.com signed up and logged in
+        # different user, testing@user.com signed up and logged in, post different goal
         self.client.post('/sign_up', data={'email': 
         'testing@user.com', 'first_name':'Testing', 'last_name':'User',
         'password1':'PassTest123', 'password2':'PassTest123'})
@@ -114,13 +116,10 @@ class GoalsTest(TestCase):
         'testing@user.com','password':'PassTest123'})
         dashboard_response = self.client.get(success_reponse.url)
         url2 = f'/{dashboard_response.url}'
-
-        # post different goals for each user and test if both are present/absent from both users
-        self.goal_post('goal_input', 'date_input', 'Learn the song Starman', 
-        '2021-08-01', url1)
         self.goal_post('goal_input', 'date_input', 'Learn the song Life on Mars', 
         '2021-08-01', url2)
 
+        # test if both are present/absent from both users
         pk1 = self.get_user_pk_from_url(url1)
         user1 = MyUser.objects.get(pk=pk1)
         goal1 = Goal.objects.get(user = user1)
