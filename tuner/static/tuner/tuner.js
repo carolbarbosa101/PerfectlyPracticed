@@ -56,13 +56,13 @@ function showNote(){
     }, 10);
 }
 
-// when string is plucked in a range of +/- 0.6 near a note, 
+// when string is plucked in a range of +/- 0.45 near a note, 
 // we identify the note and go to its respective carousel slide
 function higherOrLower(){
     for(var noteFreq in notes){
       var absDiff = Math.abs(freq - noteFreq);
       // perfectly tuned
-      if(absDiff <= 0.6){
+      if(absDiff <= 0.45){
           var note = notes[noteFreq];
           var noteSlide = noteSlides[note];
           slider.goToSlide(noteSlide - 1);

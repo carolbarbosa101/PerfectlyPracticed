@@ -8,6 +8,9 @@ import boto3
 from botocore.client import Config
 from django.http import HttpResponse, HttpResponseForbidden
 import urllib.parse as urlparse
+import requests
+from django.contrib import messages
+
 
 def song_book(request, user_pk):
     the_user = MyUser.objects.get(pk=user_pk)
@@ -90,8 +93,18 @@ def song_video(request, user_pk, song_pk):
         return HttpResponseForbidden('You do not have permission to view this page.')
     song = Song.objects.get(pk = song_pk, user=the_user)
 
-    # turn regular yt link to embed link
+    # check if input is valid YouTube URL
     raw_link = request.POST['link_input']
+    if raw_link.startswith('https://'):
+        r = requests.get(raw_link)
+        if "Video unavailable" in r.text:
+            messages.warning(request, 'Please add a valid YouTube URL.')
+            return redirect(f'/song_book/{user_pk}/')
+    else:
+        messages.warning(request, 'Please add a valid YouTube URL.')
+        return redirect(f'/song_book/{user_pk}/')
+
+    # turn regular yt link to embed link
     url_data = urlparse.urlparse(raw_link)
     query = urlparse.parse_qs(url_data.query)
     id = query["v"][0]

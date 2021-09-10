@@ -3,14 +3,16 @@ from .base import FunctionalTest
 class SignupLoginTest(FunctionalTest):
     
     def test_register_and_login(self):  
-        # Ziggy has heard about this cool new website to help with his guitar practice
-        # He opens his browser and goes to link
+        # Ziggy has heard about this cool new website, 
+        # that can help his guitar practice
+        # He opens his browser and goes to the link
         self.browser.get(self.live_server_url)
 
         # He is presented with a login page with username and password textboxes
         self.assertIn('Perfectly Practiced', self.browser.title)  
 
-        # Ziggy does not have an account so he chooses the sign up link that is below the entry fields
+        # Ziggy does not have an account,
+        # so he chooses the sign up link that is below the entry fields
         self.find_and_click('#sign_up')
         
         # He enters his details into the boxes and clicks the register button
