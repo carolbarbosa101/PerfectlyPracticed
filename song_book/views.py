@@ -15,7 +15,7 @@ from django.contrib import messages
 def song_book(request, user_pk):
     the_user = MyUser.objects.get(pk=user_pk)
     if request.user != the_user:
-        return HttpResponseForbidden('You do not have permission to view this page.')
+        return HttpResponseForbidden()
     songs = Song.objects.filter(user = the_user)
     to_learn_songs = songs.filter(status='to_learn').order_by('list_index')
     learning_songs = songs.filter(status='learning').order_by('list_index')
@@ -33,7 +33,7 @@ def index_init(song):
 def song_post(request, user_pk, status):
     the_user = MyUser.objects.get(pk=user_pk)
     if request.user != the_user:
-        return HttpResponseForbidden('You do not have permission to view this page.')
+        return HttpResponseForbidden()
     
     if status == 'to_learn':
         song = Song.objects.create(text=request.POST['to_learn_input'], status = status, user = the_user)
@@ -55,7 +55,7 @@ def song_post(request, user_pk, status):
 def song_delete(request, user_pk, song_pk):
     the_user = MyUser.objects.get(pk=user_pk)
     if request.user != the_user:
-        return HttpResponseForbidden('You do not have permission to view this page.')
+        return HttpResponseForbidden()
     song = Song.objects.get(pk = song_pk, user=the_user)
     song.delete()
     return redirect(f'/song_book/{user_pk}/')
@@ -68,7 +68,7 @@ def song_move(request):
     
     the_user = MyUser.objects.get(pk=user_pk)
     if request.user != the_user:
-        return HttpResponseForbidden('You do not have permission to view this page.')
+        return HttpResponseForbidden()
     song = Song.objects.get(pk = song_pk, user=the_user)
     song.list_index = list_index
     song.status = status
@@ -81,7 +81,7 @@ def song_note(request):
 
     the_user = MyUser.objects.get(pk=user_pk)
     if request.user != the_user:
-        return HttpResponseForbidden('You do not have permission to view this page.')
+        return HttpResponseForbidden()
     song = Song.objects.get(pk = song_pk, user=the_user)
     song.note = request.POST.get('note_input')
     song.save()
@@ -90,7 +90,7 @@ def song_note(request):
 def song_video(request, user_pk, song_pk):
     the_user = MyUser.objects.get(pk=user_pk)
     if request.user != the_user:
-        return HttpResponseForbidden('You do not have permission to view this page.')
+        return HttpResponseForbidden()
     song = Song.objects.get(pk = song_pk, user=the_user)
 
     # check if input is valid YouTube URL
@@ -152,7 +152,7 @@ def song_recording(request, user_pk, song_pk):
 
     the_user = MyUser.objects.get(pk=user_pk)
     if request.user != the_user:
-        return HttpResponseForbidden('You do not have permission to view this page.')
+        return HttpResponseForbidden()
     the_song = Song.objects.get(pk = song_pk, user=the_user)
     recording = Recording.objects.create(file=f, name=display_name, song=the_song)
     recording.save()
@@ -163,7 +163,7 @@ def song_recording(request, user_pk, song_pk):
 def song_recording_delete(request, user_pk, song_pk, recording_pk):
     the_user = MyUser.objects.get(pk=user_pk)
     if request.user != the_user:
-        return HttpResponseForbidden('You do not have permission to view this page.')
+        return HttpResponseForbidden()
     the_song = Song.objects.get(pk = song_pk, user=the_user)
     recording = Recording.objects.get(pk=recording_pk, song=the_song)
     recording.delete()

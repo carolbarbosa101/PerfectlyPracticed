@@ -52,8 +52,18 @@ function gotPitch(err, frequency) {
 // update every 10 ms
 function showNote(){
     interval = setInterval(() => {
+      displayFreq()
       higherOrLower();
     }, 10);
+}
+
+function displayFreq(){
+  if(freq){
+    rounded = freq.toFixed(2)
+    $('#freq').html(rounded + ' Hz').css('color', '#3badad');
+  }else{
+    $('#freq').html('No Input').css('color', '#DC143C');
+  }
 }
 
 // when string is plucked in a range of +/- 0.45 near a note, 
@@ -66,7 +76,6 @@ function higherOrLower(){
           var note = notes[noteFreq];
           var noteSlide = noteSlides[note];
           slider.goToSlide(noteSlide - 1);
-          $('#freq').html(noteFreq + ' Hz').css('color', '#3badad');
         }
     }
 }

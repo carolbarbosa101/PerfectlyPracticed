@@ -9,7 +9,7 @@ from django.http import HttpResponseForbidden
 def timer(request, user_pk):
     the_user = MyUser.objects.get(pk=user_pk)
     if request.user != the_user:
-        return HttpResponseForbidden('You do not have permission to view this page.')
+        return HttpResponseForbidden()
     if request.method == 'POST':
         Task.objects.create(text=request.POST['task_input'] , time=request.POST['time_input'], colour=request.POST['colour_input'], user = the_user)
         return redirect(f'/timer/{user_pk}/')
@@ -29,7 +29,7 @@ def timer(request, user_pk):
 def task_delete(request, user_pk, task_pk):
     the_user = MyUser.objects.get(pk=user_pk)
     if request.user != the_user:
-        return HttpResponseForbidden('You do not have permission to view this page.')
+        return HttpResponseForbidden()
     task = Task.objects.get(pk = task_pk, user=the_user)
     task.delete()
     return redirect(f'/timer/{user_pk}/')

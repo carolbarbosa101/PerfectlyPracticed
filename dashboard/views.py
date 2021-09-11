@@ -10,7 +10,7 @@ from django.http import HttpResponseForbidden
 def dashboard(request, user_pk):
     the_user = MyUser.objects.get(pk=user_pk)
     if request.user != the_user:
-        return HttpResponseForbidden('You do not have permission to view this page.')
+        return HttpResponseForbidden()
     if request.method == 'POST':
         if (request.POST['date_input'] == ''):
             Goal.objects.create(text=request.POST['goal_input'], user = the_user)
@@ -30,7 +30,7 @@ def dashboard(request, user_pk):
 def goal_tick(request, user_pk, goal_pk):
     the_user = MyUser.objects.get(pk=user_pk)
     if request.user != the_user:
-        return HttpResponseForbidden('You do not have permission to view this page.')
+        return HttpResponseForbidden()
     goal = get_object_or_404(Goal, user = the_user, pk = goal_pk)
     goal.completed = True
     goal.save()
@@ -39,7 +39,7 @@ def goal_tick(request, user_pk, goal_pk):
 def goal_edit(request, user_pk, goal_pk):
     the_user = MyUser.objects.get(pk=user_pk)
     if request.user != the_user:
-        return HttpResponseForbidden('You do not have permission to view this page.')
+        return HttpResponseForbidden()
     goal = get_object_or_404(Goal, user = the_user, pk = goal_pk)
     if (goal.editing == False):
         goal.editing = True
