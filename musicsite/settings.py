@@ -160,6 +160,7 @@ LOGIN_URL = 'login'
 
 LOGOUT_REDIRECT_URL = 'login'
 
+# this tutorial used to set up S3: https://www.youtube.com/watch?v=kt3ZtW9MXhw&ab_channel=CoreySchafer
 # AWS S3 Bucket credentials 
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
@@ -172,4 +173,5 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
+# setting taken from here: https://stackoverflow.com/questions/51424578/embed-youtube-code-is-not-working-in-html
 SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"

@@ -6,6 +6,9 @@ import datetime
 class CustomCal(HTMLCalendar):
     cssclass_month = 'text-center month'
 
+    # the cal.replace line used repeatedly below is adapted from here:
+    # https://stackoverflow.com/questions/49157786/how-to-highlight-todays-date-in-calendar-using-python
+
     def colour_calendar(pk, month, year):
         # get user object that this dashboard is specific to
         the_user = MyUser.objects.get(pk=pk)

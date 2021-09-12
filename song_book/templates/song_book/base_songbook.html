@@ -147,6 +147,7 @@
             chosenClass: 'active',
 
             onEnd: function (evt) {
+                // the following loop was adapted from here: https://github.com/SortableJS/Sortable/issues/808
                 // on drag & drop end, indexes of everything in the target list (evt.to) is updated,
                 // by putting everything in evt.to, inside an array, getting their index and setting this as the new list indexes
                 [].forEach.call(evt.to.getElementsByClassName('list-group-item'), function (el,index) {

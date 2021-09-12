@@ -7,10 +7,17 @@ from django.contrib.sessions.models import Session
 from users.models import MyUser
 from selenium.webdriver.firefox.options import Options
 
+# The first chapter of this book has been used extensively to make all the tests:
+# https://www.obeythetestinggoat.com/book/part1.harry.html
+
+
+
 # parent class with helper methods for other functional tests
 class FunctionalTest(StaticLiveServerTestCase):
 
     def setUp(self):  
+        # following line from here: 
+        # https://stackoverflow.com/questions/21310797/using-selenium-webdriver-and-python-how-do-i-suppress-the-prompt-to-share-my-ca
         options = Options()
         options.set_preference("media.navigator.permission.disabled", True)
         self.browser = webdriver.Firefox(options=options)

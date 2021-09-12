@@ -12,6 +12,9 @@ var constraints = { audio: {
 var user_pk;
 var song_pk;
 
+// audio recording adapted from this tutorial: 
+// https://blog.addpipe.com/using-recorder-js-to-capture-wav-audio-in-your-html5-web-site/
+
 function startRecording(elem){
     $(elem).attr('disabled', true)
     $(elem).siblings('.stop_button').attr('disabled', false)
@@ -119,6 +122,8 @@ function saveOrDiscard(elem, blob){
     });
 }
 
+// next two functions taken from this tutorial: https://devcenter.heroku.com/articles/s3-upload-python
+
 // first a get request is sent to sign off with the AWS details in Django
 function getSignedRequest(file){
     let formData = new FormData();
@@ -180,6 +185,7 @@ function getSignedRequest(file){
     postData.append('url', url)
     postData.append('display_name', display_name)
 
+    // fetch found here: https://github.com/mattdiamond/Recorderjs/issues/188
     fetch(`/song_book/${user_pk}/song_recording/${song_pk}/`, {
         headers: {"X-CSRFToken": csrftoken},
         method: 'post',

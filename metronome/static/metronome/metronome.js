@@ -4,6 +4,8 @@ let lookahead = 0.25;
 let nextNoteTime = 0;
 var bpm = $('#bpm_input').val();
 
+// most functions in this file are adapted from here: 
+// https://grantjam.es/creating-a-simple-metronome-using-javascript-and-the-web-audio-api 
 
 function playOsc(time){
   // input node oscillator
@@ -38,6 +40,7 @@ function playAnimation(time){
   
   timeLeft = (time - audioContext.currentTime) * 1000
   setTimeout(() => {
+    // animation found here: https://stackoverflow.com/questions/275931/how-do-you-make-an-element-flash-in-jquery
     $('#circle_2').fadeTo(fadeTime, 0.5, function() { $(this).fadeTo(fadeTime, 1.0); });
     console.log('beat')
     }, timeLeft);

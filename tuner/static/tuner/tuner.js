@@ -12,10 +12,14 @@ var slider = $('#light_slider').lightSlider({
   pager: false,
   enableTouch: false,
   enableDrag: false,
+  // following function to fix bug taken from here:
+  // https://github.com/sachinchoolur/lightslider/issues/19
   onSliderLoad: function() {
     $('#light_slider').removeClass('cS-hidden');
   } 
 });
+// this tutorial was used as a guide for setting up the model:
+// https://github.com/CodingTrain/website/blob/main/CodingChallenges/CC_151_Ukulele_Tuner/P5/sketch.js
 
 // create mic audio input with p5.js
 function setup() {

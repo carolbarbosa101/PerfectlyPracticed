@@ -14,6 +14,9 @@ let timerInterval = null;
 const RADIUS = 300;
 const CIRCUMFERENCE = 2*Math.PI*RADIUS;
 
+// the functions to animate the timer were adapted from here:
+// https://css-tricks.com/how-to-create-an-animated-countdown-timer-with-html-css-and-javascript/
+
 function calculateTotalTime(){
   // for initial time label with no tasks, set 0
   if(timeString === '[]'){

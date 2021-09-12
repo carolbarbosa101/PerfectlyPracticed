@@ -81,6 +81,8 @@ class SongBookTest(FunctionalTest):
         self.find_and_click('.stop_button')
 
         # He then sees a preview where he can listen back to the recording 
+        # following line taken from here: 
+        # https://stackoverflow.com/questions/53515607/how-to-handle-html-audio-element-in-selenium
         self.browser.execute_script("document.getElementsByClassName('preview-audio')[0].play()")
         time.sleep(2)
 

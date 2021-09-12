@@ -114,6 +114,7 @@
             $('#start_button').click(startTuner)
             // place json data into appropriate dictionaries to be acessed in tuner.js
             var i = 0;
+            // following file taken and edited from here: https://gist.github.com/i-Robi/8684800
             $.getJSON( "{% static 'tuner/notes.json' %}", (data) => {         
                 $.each(data, (note, noteFreq) => {
                     notes[noteFreq] = note

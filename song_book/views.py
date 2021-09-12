@@ -93,6 +93,8 @@ def song_video(request, user_pk, song_pk):
         return HttpResponseForbidden()
     song = Song.objects.get(pk = song_pk, user=the_user)
 
+    # method of validating link taken form here: 
+    # https://stackoverflow.com/questions/63325908/how-do-i-check-if-a-youtube-video-url-is-valid-or-not-in-python
     # check if input is valid YouTube URL
     raw_link = request.POST['link_input']
     if raw_link.startswith('https://'):
@@ -104,6 +106,8 @@ def song_video(request, user_pk, song_pk):
         messages.warning(request, 'Please add a valid YouTube URL.')
         return redirect(f'/song_book/{user_pk}/')
 
+    # url parse implementation taken from here: 
+    # https://stackoverflow.com/questions/4356538/how-can-i-extract-video-id-from-youtubes-link-in-python
     # turn regular yt link to embed link
     url_data = urlparse.urlparse(raw_link)
     query = urlparse.parse_qs(url_data.query)
@@ -113,6 +117,9 @@ def song_video(request, user_pk, song_pk):
     song.save()
     return redirect(f'/song_book/{user_pk}/')
 
+# following function adapted from these two source: 
+# https://devcenter.heroku.com/articles/s3-upload-python
+# https://github.com/boto/boto3/issues/934
 def sign_s3(request, file_name):
     # this function signs off the wav file we want to send to AWS,
     # with the AWS details stored in environment variables 

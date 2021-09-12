@@ -2,7 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now
 from users.models import MyUser, LoginDate
 
-
+# This middleware is fully from here: 
+# https://stackoverflow.com/questions/48407790/restricting-all-the-views-to-authenticated-users-in-django
 def login_exempt(view):
     view.login_exempt = True
     return view
@@ -24,7 +25,8 @@ class LoginRequiredMiddleware:
 
         return login_required(view_func)(request, *view_args, **view_kwargs)
 
-
+# This middleware was adapted from here:
+# https://stackoverflow.com/questions/38247176/django-how-to-check-if-an-user-is-visiting-the-website-everyday
 # Middleware which updates the last login & login dates of the user
 class SetLastVisitMiddleware(object):
     def __init__(self, get_response):

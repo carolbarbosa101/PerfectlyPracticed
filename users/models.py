@@ -4,7 +4,9 @@ from django.contrib.auth.models import (
 )
 from django.db.models.deletion import CASCADE
 
-# Create your models here.
+# These models are mostly boiler plate code but this was used as a guide: 
+# https://github.com/mitchtabian/CodingWithMitch-Blog-Course/blob/master/src/account/models.py
+
 class MyUserManager(BaseUserManager):
     def create_user(self, email, first_name, last_name, password):
         if not email:
@@ -43,7 +45,6 @@ class MyUserManager(BaseUserManager):
         user.is_superuser = True
         user.save(using=self._db)
         return user
-
 
 class MyUser(AbstractBaseUser):
     email = models.EmailField(verbose_name='email address', max_length=255, unique=True)
