@@ -14,17 +14,19 @@ A customizable timer in which the user can break up their practice time into tas
 
 ## Song Book
 User can categorise the songs that they are learning and help track progress. 
-Videos, notes and recordings can be added to aid song learning process too.
-![image](https://user-images.githubusercontent.com/73338013/236807246-9d452ef3-f860-4c56-8f03-fa8bd2efc9b0.png)
-![image](https://user-images.githubusercontent.com/73338013/236807628-bc81a7a7-b752-4f50-bf1b-3adb6f32e62a.png)
-![image](https://user-images.githubusercontent.com/73338013/236807659-52c83067-3c6f-4801-8bfa-6b024d46f715.png)
+![image](https://user-images.githubusercontent.com/73338013/236808546-a3b9b3cf-5bcd-4b4c-8ec4-809c73bedd3f.png)
+Each song element is clickable and contains a modal pop-up in which videos notes can be stored.
+![image](https://user-images.githubusercontent.com/73338013/236808808-5e3aaa4d-38ec-47a0-a756-4409f1b5391a.png)
+As well as song recordings.
+![image](https://user-images.githubusercontent.com/73338013/236808852-39707922-3c3b-49b7-8ca7-f4c7bdf7598a.png)
+
 
 
 ## Metronome
 Metronome with flashing animation.
-![image](https://user-images.githubusercontent.com/73338013/236807930-2d9a1df7-2472-458e-b8e4-755fdba6fd2e.png)
+![image](https://user-images.githubusercontent.com/73338013/236808256-ee53f767-b401-481c-813a-7b99d60e7439.png)
 
 
 ## Tuner
 Tuner which can be used for a range of instruments.
-![image](https://user-images.githubusercontent.com/73338013/236807754-a24dfba1-e148-4fd6-9b5c-a3f63459dba6.png)
+![image](https://user-images.githubusercontent.com/73338013/236808439-e3326e8e-184e-4ec3-b9bc-fe36fa5505a6.png)
