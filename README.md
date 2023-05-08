@@ -1,9 +1,9 @@
-# Instructions to run app locally:
-- Git clone or download this repo 
+# To run app locally:
+- Git clone or download repo 
 - Open up the terminal and navigate to project directory of the repo
 - Pip install -r requirements.txt
 - Python manage.py runserver
-- Open local host at port 8000 on your browser, i.e. paste in this link http://127.0.0.1:8000/
+- Open this link in your browser http://127.0.0.1:8000/
 
 # Features
 ## Login/Registration Page
@@ -11,7 +11,7 @@
 
 ## Dashboard
 The home screen which contains a goal setting table and a streak calendar.
-![image](https://user-images.githubusercontent.com/73338013/236810218-cf795eaa-31d8-4229-8540-564920590e5b.png)
+![image](https://user-images.githubusercontent.com/73338013/236815387-e1eb57e3-ab6d-4d43-ab41-92cc5deaa236.png)
 
 ## Timer
 A customizable timer in which the user can break up their practice time into tasks.
